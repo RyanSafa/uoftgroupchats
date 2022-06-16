@@ -51,11 +51,7 @@ data = json.load(f)
 
 
 for i in data['courses']:
-    lectures = ''
-
-    for lec in i['lectures']:
-        lectures += lec + ','
-    lectures = lectures[:-1]
+    lectures = ','.join(i['lectures'])
 
     # this if statement prevents courses with apostrophes in them to be added. Will fix later.
     if "'" in i['title']:
