@@ -7,8 +7,8 @@ CREATE TABLE courses(
 `full` VARCHAR(10),
 `code` VARCHAR(6),
 `title` VARCHAR(150),
-`session` VARCHAR(1),
-`lectures` VARCHAR(200),
+`session` JSON,
+`lectures` JSON,
 PRIMARY KEY(`id`),
 INDEX (`code`)
 );
