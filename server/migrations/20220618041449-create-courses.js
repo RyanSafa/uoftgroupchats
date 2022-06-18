@@ -16,9 +16,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      tutorials: {
-        type: Sequelize.JSON,
-      },
       lectures: {
         type: Sequelize.JSON,
       },

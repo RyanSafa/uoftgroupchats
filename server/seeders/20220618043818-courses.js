@@ -17,7 +17,6 @@ module.exports = {
       res.courses,
       {},
       {
-        tutorials: { type: new Sequelize.JSON() },
         lectures: { type: new Sequelize.JSON() },
       }
     );
