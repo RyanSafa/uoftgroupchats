@@ -11,10 +11,10 @@ const getRequest = async (org) => {
     courses_test = Object.keys(courses).length;
     for (const course in courses) {
       const courseData = courses[course];
-      const { code, courseTitle, meetings } = courseData;
+      const { code, section, courseTitle, meetings } = courseData;
       const index = courseDict.courses.push({
-        code: code,
-        coursTitle: courseTitle,
+        code: `${code}-${section}`,
+        title: courseTitle,
         tutorials: [],
         lectures: [],
       });
@@ -26,6 +26,13 @@ const getRequest = async (org) => {
           courseDict.courses[index - 1].tutorials.push(meeting);
         }
       }
+
+      if (courseDict.courses[index - 1].lectures.length === 0) {
+        courseDict.courses[index - 1].lectures.push(null);
+      }
+      if (courseDict.courses[index - 1].tutorials.length === 0) {
+        courseDict.courses[index - 1].tutorials.push(null);
+      }
     }
   } catch (err) {
     console.log(err);
@@ -33,7 +40,7 @@ const getRequest = async (org) => {
   return courseDict;
 };
 
-// Loop through very org, and accumulate the orgs in the courses dictionary
+// Loop through every org, and accumulate the orgs in the courses dictionary
 const getCourses = async () => {
   let courses = { courses: [] };
   for (org of ORGS) {
@@ -49,7 +56,6 @@ const getCourses = async () => {
 
 // create the json file
 getCourses().then((res) => {
-  console.log(res);
   const dict = res;
   const json = JSON.stringify(dict);
   fs.writeFile("courses.json", json, "utf8", (e) => {
