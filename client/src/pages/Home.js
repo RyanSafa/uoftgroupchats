@@ -1,16 +1,16 @@
 import React from 'react'
 import { useState } from 'react';
-import Axios from 'axios'
 import Lookup from '../components/Lookup';
 import CourseList from '../components/CourseList';
 
 const Home = () => {
     const [searchResult, setSearchResult] = useState([])
 
-    const formSubmissionHandler = (courseSent) => {
-        Axios.get(`http://localhost:5000/api/${courseSent}`).then((response) => {
-            setSearchResult(response.data)
-        }).catch((err) => { console.log('OOPS') })
+    const formSubmissionHandler = async (courseSent) => {
+        const response = await fetch(`http://localhost:5000/api/search/${courseSent}`)
+        const data = await response.json()
+        setSearchResult(data)
+        console.log(data[0].code)
     }
 
     return (

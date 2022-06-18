@@ -11,7 +11,7 @@ function App() {
         <MainNavigation></MainNavigation>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/:code' element={<CourseDetail />} />
+          <Route path='/courses/:code' element={<CourseDetail />} />
         </Routes>
       </BrowserRouter>
     </div>
