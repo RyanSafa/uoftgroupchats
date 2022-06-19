@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Lookup from "../components/Lookup";
+import SearchBar from "../components/SearchBar";
 import CourseList from "../components/CourseList";
 
 const Home = () => {
@@ -15,8 +15,8 @@ const Home = () => {
 
   return (
     <>
-      <Lookup formSubmissionHandler={formSubmissionHandler}></Lookup>
-      <CourseList searchResult={searchResult} />
+      <SearchBar formSubmissionHandler={formSubmissionHandler}></SearchBar>
+      {/* <CourseList searchResult={searchResult} /> */}
     </>
   );
 };
