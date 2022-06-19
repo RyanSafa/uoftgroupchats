@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Fragment } from "react";
 import { Typography, Autocomplete, TextField } from "@mui/material";
+import { Link } from "react-router-dom";
+import './SearchBar.css'
 
 const SearchBar = (props) => {
   const [inputValue, setInputValue] = useState("");
@@ -34,7 +36,7 @@ const SearchBar = (props) => {
         onInputChange={(e) => setInputValue(e.target.value)}
         id="search-course-code"
         getOptionLabel={(option) => {
-          return option;
+          return option
         }}
         options={values}
         freeSolo={true}
@@ -42,6 +44,11 @@ const SearchBar = (props) => {
         open={inputValue.length > 3}
         fullWidth={true}
         disableClearable={true}
+        renderOption={(props, option, state) => (
+          <>
+            <Link to={`/courses/${option}`} {...props} >{option}</Link>
+          </>
+        )}
       />
     </Fragment>
   );
