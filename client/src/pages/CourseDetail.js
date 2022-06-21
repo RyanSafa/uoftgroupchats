@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
 
 
 const CourseDetail = (props) => {
@@ -23,13 +25,10 @@ const CourseDetail = (props) => {
     }
 
     return (
-        <>
-            <h1>{course.code} </h1>
-            <h2>{course.title}</h2>
-            <h3>Lectures:</h3>
-            <p>{course.lectures}</p>
-            <Link to='/' >Go back</Link>
-        </>
+        <Card className="p-2 align-items-center rounded" bg="secondary-blue" text="white">
+            <h1 className="display-1">{course.code}</h1>
+            <h2 className="display-6">{course.title}</h2>
+        </Card>
     )
 }
 
