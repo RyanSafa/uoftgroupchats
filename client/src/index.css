@@ -2,5 +2,9 @@
 
 body {
   margin: 0;
-  background-color: #008bb0;
+  background-image: url("../background_image_white.png");
+  background-position: center top;
+  background-size: cover;
+  height: 100vh;
+  background-attachment: fixed;
 }

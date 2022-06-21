@@ -15,6 +15,7 @@ app.get("/api/search/:code", async (req, res) => {
   console.log(code);
   try {
     const returnedCourses = await courses.findAll({
+      limit: 5,
       where: {
         code: {
           [Op.substring]: code,

@@ -2,7 +2,6 @@ const { QUERY } = require("./constants");
 const fetch = require("node-fetch");
 const fs = require("fs");
 
-// make a fetch request to the UofT timetable API to get the courses with the given org
 const getRequest = async () => {
   let courseDict = { courses: [] };
   try {
