@@ -7,9 +7,11 @@ const MainNavigation = () => {
   return (
     <Navbar bg="primary-blue" variant="dark" expand="lg">
       <Container className="justify-content-space-between">
-        <Navbar.Brand href="#home">UofT Groupchats</Navbar.Brand>
+        <a class="navbar-brand" href="/">
+          <img src={fullLogo} width="300" height="50" alt="" />
+        </a>
         <Nav>
-          <Nav.Link href="#link">GITHUB</Nav.Link>
+          <Nav.Link href="https://github.com/RyanSafa/uoftgroupchats" target="_blank">GitHub</Nav.Link>
         </Nav>
       </Container>
     </Navbar>
