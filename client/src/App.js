@@ -6,12 +6,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter disableGutters="true">
-        <MainNavigation>
-          {/* <Routes>
+        <MainNavigation />
+        {/* <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/courses/:code" element={<CourseDetail />} />
           </Routes> */}
-        </MainNavigation>
       </BrowserRouter>
     </div>
   );
