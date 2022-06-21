@@ -7,10 +7,10 @@ function App() {
     <div className="App">
       <BrowserRouter disableGutters="true">
         <MainNavigation />
-        {/* <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/courses/:code" element={<CourseDetail />} />
-          </Routes> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses/:code" element={<CourseDetail />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

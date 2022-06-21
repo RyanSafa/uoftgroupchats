@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 
 const MainNavigation = () => {
   return (
-    <Navbar bg="primary-blue" variant="dark" expand="lg">
+    <Navbar bg="primary-blue" variant="dark" expand="lg" sticky="top" >
       <Container className="justify-content-space-between">
         <Navbar.Brand href="/">
           <img
