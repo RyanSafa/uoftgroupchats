@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CourseDetail from "./pages/CourseDetail";
 import MainNavigation from "./components/MainNavigation";
+import "./App.css";
 function App() {
   return (
     <div className="App">
