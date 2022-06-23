@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { Op } = require("sequelize");
-const { sequelize, courses } = require("./models");
+const { sequelize, Course, Groupchat } = require("./models");
 const app = express();
 const PORT = 5000;
 const bodyParser = require("body-parser");
@@ -9,12 +9,13 @@ const bodyParser = require("body-parser");
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/search/:code", async (req, res) => {
   const { code } = req.params;
-  console.log(code);
   try {
-    const returnedCourses = await courses.findAll({
+    const returnedCourses = await Course.findAll({
+      attributes: ["code", "id", "title"],
       limit: 5,
       where: {
         code: {
@@ -22,7 +23,6 @@ app.get("/api/search/:code", async (req, res) => {
         },
       },
     });
-    console.log(returnedCourses);
     res.send(returnedCourses);
   } catch (err) {
     console.log(err);
@@ -31,14 +31,20 @@ app.get("/api/search/:code", async (req, res) => {
 
 app.get("/api/courses/:code", async (req, res) => {
   const { code } = req.params;
-  const returnedCourses = await courses.findOne({
-    where: {
-      code: code,
-    },
-  });
-  res.send(returnedCourses);
+  try {
+    const returnedCourses = await Course.findOne({
+      include: Groupchat,
+      where: {
+        code,
+      },
+    });
+    res.send(returnedCourses);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
+app.get("/api/groupchats", async (req, res) => {});
 app.listen(PORT, () => {
   console.log(`sever started on port ${PORT}`);
 });
