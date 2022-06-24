@@ -37,7 +37,7 @@ const SearchBar = () => {
         border="primary-blue"
         text="white"
       >
-        <Form>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>
               <h1>Find groupchats for your courses!</h1>
