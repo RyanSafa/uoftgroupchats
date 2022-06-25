@@ -7,14 +7,12 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 const Sections = (props) => {
-    const sections_list = ['Common', ...props.lectures]
-
-    const list_output = sections_list.map((lec) => {
+    const list_output = props.lectures.map((lec) => {
         return <ListGroup.Item variant='secondary-blue' action href={`#${lec}`}>
             {lec}
         </ListGroup.Item>
     })
-    const links_output = sections_list.map((lec) => {
+    const links_output = props.lectures.map((lec) => {
         return <Tab.Pane eventKey={`#${lec}`}>
             {lec}
         </Tab.Pane>

@@ -7,6 +7,7 @@ const CourseDetail = (props) => {
     const params = useParams()
     const [course, setCourse] = useState('COURSE NOT FOUND')
     const { code } = params
+    const sections_list = course === 'COURSE NOT FOUND' ? [] : ['Common', ...course.lectures]
 
     useEffect(() => {
         const fetchData = async (code) => {
@@ -28,7 +29,7 @@ const CourseDetail = (props) => {
                 <h1 className="display-1 fw-bold">{course.code}</h1>
                 <h2 className="display-6">{course.title}</h2>
             </Card>
-            <Sections lectures={course.lectures} />
+            <Sections lectures={sections_list} />
         </>
     )
 }
