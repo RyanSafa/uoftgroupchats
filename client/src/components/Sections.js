@@ -37,7 +37,7 @@ const Sections = (props) => {
         // console.log(chats.lec)
         let output = 'No Groupchats found!'
         if (`${lec}` in chats) {
-            output = chats[`${lec}`].map((chat) => <ChatLink link={chat.link} type={chat.type} />)
+            output = chats[`${lec}`].map((chat) => <ChatLink key={chat.id} link={chat.link} type={chat.type} />)
             // console.log(output)
         }
         return <Tab.Pane key={`#${lec}`} eventKey={`#${lec}`}>

@@ -47,13 +47,14 @@ const SearchBar = () => {
               placeholder="Course Code (e.g. MAT137)"
               onChange={(e) => setInputValue(e.target.value)}
             />
-            <ListGroup defaultActiveKey="#link1">
+            <ListGroup>
               {values.map((value) => {
                 return (
                   <ListGroup.Item
                     action
                     href={`/courses/${value.code}`}
                     variant="secondary-blue"
+                    key={value.id}
                   >
                     <span className="fw-bold">{value.code}</span> -{" "}
                     {value.title}
