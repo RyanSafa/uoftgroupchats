@@ -16,7 +16,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Groupchat.init(
     {
-      type: DataTypes.ENUM("Whatsapp", "Discord", "Instagram", "WeChat"),
+      type: DataTypes.ENUM(
+        "WhatsApp",
+        "Discord",
+        "Instagram",
+        "WeChat",
+        "Facebook Messenger"
+      ),
       link: DataTypes.STRING,
       lecture: DataTypes.STRING,
       courseId: DataTypes.INTEGER,

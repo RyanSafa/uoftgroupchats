@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/search/:code", async (req, res) => {
@@ -44,7 +45,12 @@ app.get("/api/courses/:code", async (req, res) => {
   }
 });
 
-app.get("/api/groupchats", async (req, res) => {});
+app.post("/api/groupchats/", async (req, res) => {
+  const { type, link, lecture, courseId } = req.body;
+  const groupchat = await Groupchat.create({ type, link, lecture, courseId });
+  res.send(groupchat);
+});
+
 app.listen(PORT, () => {
   console.log(`sever started on port ${PORT}`);
 });

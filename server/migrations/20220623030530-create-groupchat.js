@@ -9,7 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       type: {
-        type: Sequelize.ENUM("Whatsapp", "Discord", "Instagram", "WeChat"),
+        type: Sequelize.ENUM(
+          "WhatsApp",
+          "Discord",
+          "Instagram",
+          "WeChat",
+          "Facebook Messenger"
+        ),
       },
       link: {
         type: Sequelize.STRING,
