@@ -27,7 +27,7 @@ const CourseDetail = (props) => {
     return (
         <>
             <Card className="p-2 align-items-center rounded" bg="secondary-blue" text="white">
-                <h1 className="display-1 fw-bold">{course.code}</h1>
+                <h1 className="display-3 fw-bold">{course.code}</h1>
                 <h2 className="display-6">{course.title}</h2>
             </Card>
             <Sections lectures={sections_list} groupchats={groupchats} />
