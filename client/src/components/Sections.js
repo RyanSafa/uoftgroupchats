@@ -6,6 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ChatLink from './ChatLink'
+import Badge from 'react-bootstrap/Badge'
 
 const Sections = (props) => {
     const { groupchats, lectures } = props
@@ -30,18 +31,18 @@ const Sections = (props) => {
 
     const list_output = lectures.map((lec) => {
         return <ListGroup.Item variant='secondary-blue' key={`#${lec}`} action href={`#${lec}`}>
-            {lec}
+            {lec} <Badge bg="primary-blue">{chats[`${lec}`] ? chats[`${lec}`].length : 0}</Badge>
         </ListGroup.Item>
     })
     const links_output = lectures.map((lec) => {
         // console.log(chats.lec)
-        let output = 'No Groupchats found!'
+        let output = <h3>No groupchats found. Make one!</h3>
         if (`${lec}` in chats) {
-            output = chats[`${lec}`].map((chat) => <ChatLink key={chat.id} link={chat.link} type={chat.type} />)
+            output = chats[`${lec}`].map((chat) => <ChatLink key={chat.id} link={chat.link} type={chat.type} updatedAt={chat.updatedAt} />)
             // console.log(output)
         }
         return <Tab.Pane key={`#${lec}`} eventKey={`#${lec}`}>
-            <Row xs={1} md="auto" className="justify-content-center">
+            <Row xs="auto" md="auto" className="justify-content-left">
                 {output}
             </Row>
         </Tab.Pane>

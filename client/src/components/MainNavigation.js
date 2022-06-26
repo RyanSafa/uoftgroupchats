@@ -1,4 +1,4 @@
-import fullLogo from "./uoftgroupchatslogofull.PNG";
+import fullLogo from "../logos/uoftgroupchatslogofull.PNG";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
