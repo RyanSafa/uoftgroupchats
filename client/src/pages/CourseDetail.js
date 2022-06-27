@@ -30,7 +30,7 @@ const CourseDetail = (props) => {
                 <h1 className="display-3 fw-bold">{course.code}</h1>
                 <h2 className="display-6">{course.title}</h2>
             </Card>
-            <Sections lectures={sections_list} groupchats={groupchats} />
+            <Sections lectures={sections_list} groupchats={groupchats} courseId={course.id} />
         </>
     )
 }

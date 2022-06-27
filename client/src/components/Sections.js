@@ -8,9 +8,9 @@ import Col from 'react-bootstrap/Col'
 import ChatLink from './ChatLink'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
 import { useState } from 'react'
-import Form from 'react-bootstrap/Form'
+import NewChatModal from './NewChatModal'
+import { useLocation } from 'react-router-dom'
 
 const Sections = (props) => {
     const { groupchats, lectures } = props
@@ -19,8 +19,10 @@ const Sections = (props) => {
     const handleNewFormClose = () => setShowNewForm(false);
     const handleNewFormShow = () => setShowNewForm(true);
 
+    const location = useLocation()
+
     const chats = {}
-    groupchats.map((chat) => {
+    groupchats.forEach((chat) => {
         const lectureCode = chat.lecture
         const my_obj = {
             id: chat.id,
@@ -34,8 +36,6 @@ const Sections = (props) => {
             chats[`${lectureCode}`].push(my_obj)
         }
     })
-    // console.log(groupchats)
-    // console.log(chats)
 
     const list_output = lectures.map((lec) => {
         return <ListGroup.Item variant='secondary-blue' key={`#${lec}`} action href={`#${lec}`}>
@@ -43,11 +43,9 @@ const Sections = (props) => {
         </ListGroup.Item>
     })
     const links_output = lectures.map((lec) => {
-        // console.log(chats.lec)
         let output = <h3>No groupchats found. Make one!</h3>
         if (`${lec}` in chats) {
             output = chats[`${lec}`].map((chat) => <ChatLink key={chat.id} link={chat.link} type={chat.type} updatedAt={chat.updatedAt} />)
-            // console.log(output)
         }
         return <Tab.Pane key={`#${lec}`} eventKey={`#${lec}`}>
             <Row xs="auto" md="auto" className="justify-content-left">
@@ -56,38 +54,16 @@ const Sections = (props) => {
         </Tab.Pane>
     })
 
-    const form_options = lectures.map((lec) => <option>{lec}</option>)
+    const form_options = lectures.map((lec) => <option key={lec} selected={lec === location.hash.substring(1)}>{lec}</option>)
 
     return (
         <>
-            <Modal show={showNewForm} onHide={handleNewFormClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Create a new groupchat!</Modal.Title>
-                </Modal.Header>
-                <Container>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="formSection">
-                            <Form.Label>Lecture Section</Form.Label>
-                            <Form.Select>
-                                {form_options}
-                            </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formChatLink">
-                            <Form.Label>GroupChat Link</Form.Label>
-                            <Form.Control type="url" placeholder="https://example.com" />
-                        </Form.Group>
-                    </Form>
-                </Container>
-                <Modal.Footer>
-                    <Button variant="secondary-red" onClick={handleNewFormClose}>
-                        Close
-                    </Button>
-                    <Button variant="secondary-blue" onClick={handleNewFormClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <NewChatModal
+                showNewForm={showNewForm}
+                handleNewFormClose={handleNewFormClose}
+                form_options={form_options}
+                courseId={props.courseId}
+            />
             <Container className='mt-2' fluid>
                 <Card className="text-center" bg='primary-blue' text='white'>
                     <Card.Body>

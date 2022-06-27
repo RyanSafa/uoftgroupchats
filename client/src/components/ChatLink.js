@@ -6,6 +6,7 @@ import whatsappLogo from "../logos/WhatsApp_logo.webp";
 import discordLogo from "../logos/discord-logo.png"
 import instaLogo from "../logos/instagram_logo.webp"
 import wechatLogo from "../logos/wechat_logo.png"
+import messengerLogo from "../logos/messenger_logo.jpg"
 
 const ChatLink = (props) => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -15,15 +16,16 @@ const ChatLink = (props) => {
     const date = new Date(props.updatedAt)
 
     const logos = {
-        Whatsapp: whatsappLogo,
-        Discord: discordLogo,
-        Instagram: instaLogo,
-        WeChat: wechatLogo
+        'WhatsApp': whatsappLogo,
+        'Discord': discordLogo,
+        'Instagram': instaLogo,
+        'WeChat': wechatLogo,
+        'Facebook Messenger': messengerLogo
     }
 
     return (
         <Col>
-            <Card border="secondary-blue" style={{ width: '18rem' }} text={props.type} className='my-2'>
+            <Card border="secondary-blue" style={{ width: '18rem' }} text={props.type === 'Facebook Messenger' ? 'Messenger' : props.type} className='my-2'>
                 <Card.Header as='h5'>{props.type} <img
                     alt=""
                     src={logos[props.type]}
