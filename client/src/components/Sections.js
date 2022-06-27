@@ -10,7 +10,6 @@ import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import NewChatModal from './NewChatModal'
-import { useLocation } from 'react-router-dom'
 
 const Sections = (props) => {
     const { groupchats, lectures } = props
@@ -18,8 +17,6 @@ const Sections = (props) => {
 
     const handleNewFormClose = () => setShowNewForm(false);
     const handleNewFormShow = () => setShowNewForm(true);
-
-    const location = useLocation()
 
     const chats = {}
     groupchats.forEach((chat) => {
@@ -54,7 +51,7 @@ const Sections = (props) => {
         </Tab.Pane>
     })
 
-    const form_options = lectures.map((lec) => <option key={lec} selected={lec === location.hash.substring(1)}>{lec}</option>)
+    const form_options = lectures.map((lec) => <option key={lec}>{lec}</option>)
 
     return (
         <>

@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import { useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 
 const NewChatModal = (props) => {
     const types = ["WhatsApp", "Discord", "Instagram", "WeChat", "Facebook Messenger"]
@@ -12,6 +13,8 @@ const NewChatModal = (props) => {
     const typeRef = useRef()
     const urlRef = useRef()
     const { courseId, showNewForm, handleNewFormClose, form_options } = props
+
+    const location = useLocation()
 
     const addChatHandler = async (event) => {
         event.preventDefault()
@@ -42,7 +45,7 @@ const NewChatModal = (props) => {
                 <Form onSubmit={addChatHandler}>
                     <Form.Group className="mb-3" controlId="formSection">
                         <Form.Label>Lecture Section</Form.Label>
-                        <Form.Select ref={lecRef}>
+                        <Form.Select ref={lecRef} defaultValue={location.hash.substring(1)}>
                             {form_options}
                         </Form.Select>
                     </Form.Group>
