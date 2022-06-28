@@ -5,6 +5,10 @@ const { sequelize, Course, Groupchat } = require("./models");
 const app = express();
 const PORT = 5000;
 const bodyParser = require("body-parser");
+const { validateRequest } = require("./middleware/requestValidation");
+const {
+  schema: groupchatSchema,
+} = require("./validationSchemas/groupchatValidationSchema");
 
 app.use(cors());
 app.use(express.json());
@@ -24,7 +28,7 @@ app.get("/api/search/:code", async (req, res) => {
         },
       },
     });
-    res.send(returnedCourses);
+    return res.send(returnedCourses);
   } catch (err) {
     console.log(err);
   }
@@ -39,17 +43,23 @@ app.get("/api/courses/:code", async (req, res) => {
         code,
       },
     });
-    res.send(returnedCourses);
+    return res.send(returnedCourses);
   } catch (err) {
     console.log(err);
   }
 });
 
-app.post("/api/groupchats/", async (req, res) => {
-  const { type, link, lecture, courseId } = req.body;
-  const groupchat = await Groupchat.create({ type, link, lecture, courseId });
-  res.send(groupchat);
-});
+app.post(
+  "/api/groupchats/",
+  groupchatSchema,
+  validateRequest,
+  async (req, res) => {
+    const { type, link, lecture, courseId } = req.body;
+
+    const groupchat = await Groupchat.create({ type, link, lecture, courseId });
+    return res.send(groupchat);
+  }
+);
 
 app.listen(PORT, () => {
   console.log(`sever started on port ${PORT}`);
