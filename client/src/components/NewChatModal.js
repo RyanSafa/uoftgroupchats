@@ -32,8 +32,9 @@ const NewChatModal = (props) => {
             }
         })
         const data = await response.json()
+        handleNewFormClose()
+        props.setShowAlert(true)
         console.log(data)
-        window.location.reload()
     }
 
     return (

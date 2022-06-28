@@ -34,7 +34,7 @@ const ChatLink = (props) => {
                     className="d-inline-block align-top"
                 /></Card.Header>
                 <Card.Body>
-                    <Card.Title> <a href={`${props.link}`}>{props.link}</a></Card.Title>
+                    <Card.Title as='p'> <a href={`${props.link}`}>{props.link}</a></Card.Title>
                     <Button variant="outline-secondary-blue" className='mx-3 mt-2' onClick={() => { navigator.clipboard.writeText(props.link) }}>COPY</Button>
                     <Button variant="outline-secondary-red" className='mx-3 mt-2'>REPORT</Button>
                 </Card.Body>

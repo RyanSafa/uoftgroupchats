@@ -8,15 +8,9 @@ import Col from 'react-bootstrap/Col'
 import ChatLink from './ChatLink'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button'
-import { useState } from 'react'
-import NewChatModal from './NewChatModal'
 
 const Sections = (props) => {
-    const { groupchats, lectures } = props
-    const [showNewForm, setShowNewForm] = useState(false);
-
-    const handleNewFormClose = () => setShowNewForm(false);
-    const handleNewFormShow = () => setShowNewForm(true);
+    const { groupchats, lectures, handleNewFormShow } = props
 
     const chats = {}
     groupchats.forEach((chat) => {
@@ -51,16 +45,8 @@ const Sections = (props) => {
         </Tab.Pane>
     })
 
-    const form_options = lectures.map((lec) => <option key={lec}>{lec}</option>)
-
     return (
         <>
-            <NewChatModal
-                showNewForm={showNewForm}
-                handleNewFormClose={handleNewFormClose}
-                form_options={form_options}
-                courseId={props.courseId}
-            />
             <Container className='mt-2' fluid>
                 <Card className="text-center" bg='primary-blue' text='white'>
                     <Card.Body>
