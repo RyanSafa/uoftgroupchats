@@ -39,7 +39,7 @@ const schema = {
         if (course === null) {
           return Promise.reject("Not a valid Course Id");
         }
-        if (!course.dataValues.lectures.includes(value)) {
+        if (!course.dataValues.lectures.includes(value) && value !== 'Common') {
           return Promise.reject("Not a valid lecture.");
         }
       },

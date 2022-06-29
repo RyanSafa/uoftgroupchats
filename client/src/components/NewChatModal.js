@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const NewChatModal = (props) => {
@@ -14,27 +14,33 @@ const NewChatModal = (props) => {
     const urlRef = useRef()
     const { courseId, showNewForm, handleNewFormClose, form_options } = props
 
+    const [validated, setValidated] = useState(true)
+
     const location = useLocation()
 
     const addChatHandler = async (event) => {
         event.preventDefault()
-        const request_obj = {
-            type: typeRef.current.value,
-            link: urlRef.current.value,
-            lecture: lecRef.current.value,
-            courseId
-        }
-        const response = await fetch('/api/groupchats/', {
-            method: 'POST',
-            body: JSON.stringify(request_obj),
-            headers: {
-                'Content-Type': 'application/json'
+        if (urlRef.current.value === '') {
+            setValidated(false)
+        } else {
+            const request_obj = {
+                type: typeRef.current.value,
+                link: urlRef.current.value,
+                lecture: lecRef.current.value,
+                courseId
             }
-        })
-        const data = await response.json()
-        handleNewFormClose()
-        props.setShowAlert(true)
-        console.log(data)
+            const response = await fetch('/api/groupchats/', {
+                method: 'POST',
+                body: JSON.stringify(request_obj),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data = await response.json()
+            handleNewFormClose()
+            props.setShowAlert(true)
+            console.log(data)
+        }
     }
 
     return (
@@ -60,7 +66,8 @@ const NewChatModal = (props) => {
 
                     <Form.Group className="mb-3" controlId="formChatLink">
                         <Form.Label>GroupChat Link</Form.Label>
-                        <Form.Control type="url" placeholder="https://example.com" ref={urlRef} />
+                        <Form.Control type="url" placeholder="https://example.com" ref={urlRef} className={validated ? '' : 'invalid-url'} />
+                        {!validated && <p style={{ color: "red" }}>Please enter a valid URL</p>}
                     </Form.Group>
                     <Button variant="secondary-blue" type='Submit' className='mb-4 mx-1' >
                         Save Changes
@@ -70,7 +77,7 @@ const NewChatModal = (props) => {
                     </Button>
                 </Form>
             </Container>
-        </Modal>
+        </Modal >
     )
 }
 
