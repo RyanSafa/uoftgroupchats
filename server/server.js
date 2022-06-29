@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const { Op } = require("sequelize");
-const { sequelize, Course, Groupchat } = require("./models");
+const { Course, Groupchat } = require("./models");
+const { checkSchema } = require("express-validator");
+
 const app = express();
 const PORT = 5000;
 const bodyParser = require("body-parser");
@@ -51,7 +53,7 @@ app.get("/api/courses/:code", async (req, res) => {
 
 app.post(
   "/api/groupchats/",
-  groupchatSchema,
+  checkSchema(groupchatSchema),
   validateRequest,
   async (req, res) => {
     const { type, link, lecture, courseId } = req.body;
