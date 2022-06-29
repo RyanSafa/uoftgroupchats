@@ -28,7 +28,7 @@ const SearchBar = () => {
 
   return (
     <Container
-      className="d-flex flex-grow-1 flex-column align-items-center justify-content-center "
+      className={"d-flex flex-grow-1 flex-column align-items-center mt-5"}
       fluid
     >
       <Card
