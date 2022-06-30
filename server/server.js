@@ -11,6 +11,7 @@ const { validateRequest } = require("./middleware/requestValidation");
 const {
   schema: groupchatSchema,
 } = require("./validationSchemas/groupchatValidationSchema");
+const ErrorHandler = require("./middleware/errorHandling");
 
 app.use(cors());
 app.use(express.json());
@@ -18,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/search/:code", async (req, res) => {
+app.get("/api/search/:code", async (req, res, next) => {
   const { code } = req.params;
   try {
     const returnedCourses = await Course.findAll({
@@ -31,23 +32,31 @@ app.get("/api/search/:code", async (req, res) => {
       },
     });
     return res.send(returnedCourses);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    next({ status: 500, message: "" });
   }
 });
 
-app.get("/api/courses/:code", async (req, res) => {
+app.get("/api/courses/:code", async (req, res, next) => {
   const { code } = req.params;
   try {
-    const returnedCourses = await Course.findOne({
+    const course = await Course.findOne({
       include: Groupchat,
       where: {
         code,
       },
     });
-    return res.send(returnedCourses);
-  } catch (err) {
-    console.log(err);
+    if (course) {
+      return res.send(course);
+    } else {
+      throw new Error("Not Found");
+    }
+  } catch (error) {
+    if (error.message === "Not Found") {
+      next({ status: 404, message: "Book not found" });
+    } else {
+      next({ status: 400, message: "" });
+    }
   }
 });
 
@@ -56,12 +65,27 @@ app.post(
   checkSchema(groupchatSchema),
   validateRequest,
   async (req, res) => {
-    const { type, link, lecture, courseId } = req.body;
+    try {
+      const { type, link, lecture, courseId } = req.body;
 
-    const groupchat = await Groupchat.create({ type, link, lecture, courseId });
-    return res.send(groupchat);
+      const groupchat = await Groupchat.create({
+        type,
+        link,
+        lecture,
+        courseId,
+      });
+      return res.send(groupchat);
+    } catch (error) {
+      next({ status: 500, message: "" });
+    }
   }
 );
+
+app.use("/*", (req, res, next) => {
+  next({ stats: 404, message: "Page not found." });
+});
+
+app.use(ErrorHandler);
 
 app.listen(PORT, () => {
   console.log(`sever started on port ${PORT}`);
