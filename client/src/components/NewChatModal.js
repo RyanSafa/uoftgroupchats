@@ -37,6 +37,7 @@ const NewChatModal = (props) => {
                 }
             })
             const data = await response.json()
+            setValidated(true)
             handleNewFormClose()
             props.setShowAlert(true)
             console.log(data)
