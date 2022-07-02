@@ -7,7 +7,7 @@ import { useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const NewChatModal = (props) => {
-    const types = ["WhatsApp", "Discord", "Instagram", "WeChat", "Facebook Messenger"]
+    const types = ["WhatsApp", "Discord", "Facebook Messenger", "Telegram", "Slack"]
     const type_options = types.map((type) => <option key={type}>{type}</option>)
     const lecRef = useRef()
     const typeRef = useRef()
@@ -36,11 +36,13 @@ const NewChatModal = (props) => {
                     'Content-Type': 'application/json'
                 }
             })
-            const data = await response.json()
-            setValidated(true)
-            handleNewFormClose()
-            props.setShowAlert(true)
-            console.log(data)
+            if (response.ok) {
+                setValidated(true)
+                handleNewFormClose()
+                props.setShowAlert(true)
+            } else {
+                console.log('OOPS')
+            }
         }
     }
 

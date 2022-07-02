@@ -34,7 +34,7 @@ const Sections = (props) => {
         </ListGroup.Item>
     })
     const links_output = lectures.map((lec) => {
-        let output = <h3>No groupchats found. Make one!</h3>
+        let output = <h3>No groupchats found for this lecture section. Choose another lecture section or make a new groupchat!</h3>
         if (`${lec}` in chats) {
             output = chats[`${lec}`].map((chat) => <ChatLink key={chat.id} link={chat.link} type={chat.type} updatedAt={chat.updatedAt} />)
         }

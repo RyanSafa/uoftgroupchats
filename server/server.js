@@ -67,7 +67,7 @@ app.post(
   "/api/groupchats/",
   checkSchema(groupchatSchema),
   validateRequest,
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const { type, link, lecture, courseId } = req.body;
 

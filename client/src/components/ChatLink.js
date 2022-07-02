@@ -4,9 +4,9 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import whatsappLogo from "../logos/WhatsApp_logo.webp";
 import discordLogo from "../logos/discord-logo.png"
-import instaLogo from "../logos/instagram_logo.webp"
-import wechatLogo from "../logos/wechat_logo.png"
 import messengerLogo from "../logos/messenger_logo.jpg"
+import telegramLogo from '../logos/telegram_logo.webp'
+import slackLogo from '../logos/Slack_logo.png'
 
 const ChatLink = (props) => {
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -18,8 +18,8 @@ const ChatLink = (props) => {
     const logos = {
         'WhatsApp': whatsappLogo,
         'Discord': discordLogo,
-        'Instagram': instaLogo,
-        'WeChat': wechatLogo,
+        'Telegram': telegramLogo,
+        'Slack': slackLogo,
         'Facebook Messenger': messengerLogo
     }
 

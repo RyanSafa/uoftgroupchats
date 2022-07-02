@@ -15,7 +15,10 @@ const CourseDetail = (props) => {
     const [showNewForm, setShowNewForm] = useState(false);
 
     const handleNewFormClose = () => setShowNewForm(false);
-    const handleNewFormShow = () => setShowNewForm(true);
+    const handleNewFormShow = () => {
+        setShowAlert(false)
+        setShowNewForm(true)
+    };
 
     const [showAlert, setShowAlert] = useState(false)
 
