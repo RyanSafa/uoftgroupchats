@@ -1,37 +1,27 @@
 "use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Groupchats", {
+    await queryInterface.createTable("Reports", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      type: {
+      reason: {
         type: Sequelize.ENUM(
-          "WhatsApp",
-          "Discord",
-          "Facebook Messenger",
-          "Telegram",
-          "Slack"
+          "Dead or expired link.",
+          "Malicious or irrelevant link.",
+          "Duplicate link."
         ),
         allowNull: false,
       },
-      link: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      lecture: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      courseId: {
+      groupchatId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         allowNull: false,
         references: {
-          model: "Courses",
+          model: "Groupchats",
           key: "id",
         },
       },
@@ -50,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Groupchats");
+    await queryInterface.dropTable("Reports");
   },
 };

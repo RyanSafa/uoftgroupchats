@@ -9,23 +9,36 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Groupchat.belongsTo(models.Course, {
-        foreignKey: "CourseId",
+        foreignKey: "courseId",
         onDelete: "CASCADE",
       });
+      Groupchat.hasMany(models.Reports);
     }
   }
   Groupchat.init(
     {
-      type: DataTypes.ENUM(
-        "WhatsApp",
-        "Discord",
-        "Instagram",
-        "WeChat",
-        "Facebook Messenger"
-      ),
-      link: DataTypes.STRING,
-      lecture: DataTypes.STRING,
-      courseId: DataTypes.INTEGER,
+      type: {
+        type: DataTypes.ENUM(
+          "WhatsApp",
+          "Discord",
+          "Facebook Messenger",
+          "Telegram",
+          "Slack"
+        ),
+        allowNull: false,
+      },
+      link: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lecture: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      courseId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       sequelize,
