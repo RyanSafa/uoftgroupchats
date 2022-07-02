@@ -8,6 +8,11 @@ const ReportModal = (props) => {
     const { handleReportFormClose, showReportForm, gc } = props
     const inputReason = useRef()
     const [validated, setValidated] = useState(true)
+    const form_options = [
+        "Dead or expired link.",
+        "Malicious or irrelevant link.",
+        "Duplicate link.",
+    ].map((reason) => <option key={reason}>{reason}</option>)
 
     const reportHandler = async (event) => {
         event.preventDefault()
@@ -18,6 +23,7 @@ const ReportModal = (props) => {
                 reason: inputReason.current.value,
                 groupchatId: gc.id
             }
+            console.log(request_obj)
             const response = await fetch('/api/reports', {
                 method: 'POST',
                 body: JSON.stringify(request_obj),
@@ -49,8 +55,9 @@ const ReportModal = (props) => {
                 <Form onSubmit={reportHandler}>
                     <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Why would you like to report this groupchat?</Form.Label>
-                        <Form.Control as="textarea" rows={3} ref={inputReason} />
-                        {!validated && <p style={{ color: "red" }}>Please give a reason.</p>}
+                        <Form.Select ref={inputReason} >
+                            {form_options}
+                        </Form.Select>
                     </Form.Group>
                     <Button variant="secondary-red" onClick={handleReportFormClose} className='mb-4 mx-1' >
                         Close
