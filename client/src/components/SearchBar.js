@@ -10,7 +10,7 @@ const SearchBar = () => {
   const [values, setValues] = useState([]);
   useEffect(() => {
     const fetchData = async (inputValue) => {
-      const response = await fetch(`/api/search/${inputValue}`);
+      const response = await fetch(`/api/courses/search/${inputValue}`);
       const data = await response.json();
       const courseList = [];
       for (const course of data) {
