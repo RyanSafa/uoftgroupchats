@@ -13,6 +13,7 @@ const Sections = (props) => {
     const { groupchats, lectures, handleNewFormShow } = props
 
     const chats = {}
+
     groupchats.forEach((chat) => {
         const lectureCode = chat.lecture
         const my_obj = {
@@ -33,10 +34,18 @@ const Sections = (props) => {
             {lec} <Badge bg="primary-blue">{chats[`${lec}`] ? chats[`${lec}`].length : 0}</Badge>
         </ListGroup.Item>
     })
+
     const links_output = lectures.map((lec) => {
         let output = <h3>No groupchats found for this lecture section. Choose another lecture section or make a new groupchat!</h3>
         if (`${lec}` in chats) {
-            output = chats[`${lec}`].map((chat) => <ChatLink key={chat.id} link={chat.link} type={chat.type} updatedAt={chat.updatedAt} />)
+            output = chats[`${lec}`].map((chat) => <ChatLink
+                key={chat.id}
+                link={chat.link}
+                type={chat.type}
+                updatedAt={chat.updatedAt}
+                id={chat.id}
+                handleReportFormShow={props.handleReportFormShow}
+                inSections={true} />)
         }
         return <Tab.Pane key={`#${lec}`} eventKey={`#${lec}`}>
             <Row xs="auto" md="auto" className="justify-content-left">

@@ -35,8 +35,8 @@ const ChatLink = (props) => {
                 /></Card.Header>
                 <Card.Body>
                     <Card.Title as='p'> <a href={`${props.link}`}>{props.link}</a></Card.Title>
-                    <Button variant="outline-secondary-blue" className='mx-3 mt-2' onClick={() => { navigator.clipboard.writeText(props.link) }}>COPY</Button>
-                    <Button variant="outline-secondary-red" className='mx-3 mt-2'>REPORT</Button>
+                    {props.inSections && <Button variant="outline-secondary-blue" className='mx-3 mt-2' onClick={() => { navigator.clipboard.writeText(props.link) }}>COPY</Button>}
+                    {props.inSections && <Button variant="outline-secondary-red" className='mx-3 mt-2' onClick={() => { props.handleReportFormShow({ id: props.id, type: props.type, link: props.link, updatedAt: props.updatedAt }) }}>REPORT</Button>}
                 </Card.Body>
                 <Card.Footer className="text-muted">
                     Created on {monthNames[date.getUTCMonth()]} {date.getDate()}, {date.getFullYear()}
