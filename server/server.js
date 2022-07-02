@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { Op, Sequelize } = require("sequelize");
-const { Course, Groupchat, Report } = require("./models");
+const { Course, Groupchat, Report, sequelize } = require("./models");
 const { checkSchema } = require("express-validator");
 
 const app = express();
@@ -93,10 +93,32 @@ app.post(
   checkSchema(reportSchema),
   validateRequest,
   async (req, res, next) => {
+    const DELETE_THRESHOLD = 3;
     const { reason, groupchatId } = req.body;
     try {
       const report = await Report.create({ reason, groupchatId });
-      return res.send(report);
+      const groupchats = await Groupchat.findAll({
+        raw: true,
+        attributes: [
+          "id",
+          [Sequelize.fn("COUNT", Sequelize.col("reports.id")), "reportCount"],
+        ],
+        include: [
+          {
+            model: Report,
+            attributes: [],
+          },
+        ],
+        group: ["Groupchat.id"],
+      });
+      let deleted = false;
+      if (groupchats[0].reportCount >= DELETE_THRESHOLD) {
+        const deletedGroupchat = await Groupchat.destroy({
+          where: { id: groupchats[0].id },
+        });
+        deleted = true;
+      }
+      return res.send({ deleted, ...report });
     } catch (error) {
       if (error instanceof Sequelize.ForeignKeyConstraintError) {
         next({ status: 400, message: "Invalid groupchatId" });
