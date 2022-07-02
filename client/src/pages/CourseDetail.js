@@ -21,6 +21,7 @@ const CourseDetail = (props) => {
     };
 
     const [showAlert, setShowAlert] = useState(false)
+    const [showError, setShowError] = useState(false)
 
     useEffect(() => {
         const fetchData = async (code) => {
@@ -44,12 +45,17 @@ const CourseDetail = (props) => {
                 <Alert.Heading>Woohoo! Groupchat Made</Alert.Heading>
             </Alert>}
 
+            {showError && <Alert variant="secondary-red" onClose={() => setShowError(false)} dismissible>
+                <Alert.Heading>Oh no! Looks like there was a problem making your groupchat.</Alert.Heading>
+            </Alert>}
+
             <NewChatModal
                 showNewForm={showNewForm}
                 handleNewFormClose={handleNewFormClose}
                 form_options={form_options}
                 courseId={course.id}
                 setShowAlert={setShowAlert}
+                setShowError={setShowError}
             />
             <Card className="p-2 align-items-center rounded" bg="secondary-blue" text="white">
                 <h1 className="display-3 fw-bold">{course.code}</h1>

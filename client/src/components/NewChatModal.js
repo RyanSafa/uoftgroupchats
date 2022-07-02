@@ -42,6 +42,7 @@ const NewChatModal = (props) => {
                 props.setShowAlert(true)
             } else {
                 console.log('OOPS')
+                props.setShowError(true)
             }
         }
     }
