@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "courseId",
         onDelete: "CASCADE",
       });
-      Groupchat.hasMany(models.Reports);
+      Groupchat.hasMany(models.Report);
     }
   }
   Groupchat.init(

@@ -45,6 +45,14 @@ const schema = {
       },
     },
   },
+  courseId: {
+    notEmpty: {
+      errorMessage: "Cannot leave courseId empty",
+    },
+    isInt: {
+      errorMessage: "courseId must be an integer.",
+    },
+  },
 };
 
 module.exports = { schema };

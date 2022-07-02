@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const { Op } = require("sequelize");
-const { Course, Groupchat } = require("./models");
+const { Op, Sequelize } = require("sequelize");
+const { Course, Groupchat, Report } = require("./models");
 const { checkSchema } = require("express-validator");
 
 const app = express();
@@ -11,6 +11,9 @@ const { validateRequest } = require("./middleware/requestValidation");
 const {
   schema: groupchatSchema,
 } = require("./validationSchemas/groupchatValidationSchema");
+const {
+  schema: reportSchema,
+} = require("./validationSchemas/reportValidationSchema");
 const ErrorHandler = require("./middleware/errorHandling");
 
 app.use(cors());
@@ -76,7 +79,30 @@ app.post(
       });
       return res.send(groupchat);
     } catch (error) {
-      next({ status: 500, message: "" });
+      if (error instanceof Sequelize.ForeignKeyConstraintError) {
+        next({ stats: 400, message: "Invalid courseId" });
+      } else {
+        next({ status: 500, message: "" });
+      }
+    }
+  }
+);
+
+app.post(
+  "/api/reports",
+  checkSchema(reportSchema),
+  validateRequest,
+  async (req, res, next) => {
+    const { reason, groupchatId } = req.body;
+    try {
+      const report = await Report.create({ reason, groupchatId });
+      return res.send(report);
+    } catch (error) {
+      if (error instanceof Sequelize.ForeignKeyConstraintError) {
+        next({ status: 400, message: "Invalid groupchatId" });
+      } else {
+        next({ status: 500, message: "" });
+      }
     }
   }
 );
