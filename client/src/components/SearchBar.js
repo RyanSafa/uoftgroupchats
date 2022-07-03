@@ -3,11 +3,14 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
+import LoadingSpinner from "./LoadingSpinner";
 import { useEffect, useState } from "react";
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState("");
   const [values, setValues] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     const fetchData = async (inputValue) => {
       const response = await fetch(`/api/courses/search/${inputValue}`);
@@ -17,9 +20,11 @@ const SearchBar = () => {
         courseList.push(course);
       }
       setValues(courseList);
+      setIsLoading(false)
     };
 
     if (inputValue.length >= 3) {
+      setIsLoading(true)
       fetchData(inputValue);
     } else {
       setValues([]);
@@ -47,7 +52,13 @@ const SearchBar = () => {
               placeholder="Course Code (e.g. MAT137)"
               onChange={(e) => setInputValue(e.target.value)}
             />
-            <ListGroup>
+            {isLoading && <LoadingSpinner />}
+            {!isLoading && values.length === 0 && inputValue.length >= 3 && <ListGroup><ListGroup.Item
+              key='nothing'
+            >
+              <span className="fw-bold">No such course found.</span>
+            </ListGroup.Item></ListGroup>}
+            {!isLoading && <ListGroup>
               {values.map((value) => {
                 return (
                   <ListGroup.Item
@@ -61,7 +72,7 @@ const SearchBar = () => {
                   </ListGroup.Item>
                 );
               })}
-            </ListGroup>
+            </ListGroup>}
           </Form.Group>
         </Form>
       </Card>
