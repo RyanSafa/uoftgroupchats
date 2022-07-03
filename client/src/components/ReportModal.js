@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form'
 const ReportModal = (props) => {
     const { handleReportFormClose, showReportForm, gc } = props
     const inputReason = useRef()
-    const [validated, setValidated] = useState(true)
     const form_options = [
         "Dead or expired link.",
         "Malicious or irrelevant link.",
@@ -16,31 +15,25 @@ const ReportModal = (props) => {
 
     const reportHandler = async (event) => {
         event.preventDefault()
-        if (inputReason.current.value === '') {
-            setValidated(false)
+        const request_obj = {
+            reason: inputReason.current.value,
+            groupchatId: gc.id
+        }
+        const response = await fetch('/api/reports', {
+            method: 'POST',
+            body: JSON.stringify(request_obj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (response.ok) {
+            handleReportFormClose()
+            props.setShowReported(true)
         } else {
-            const request_obj = {
-                reason: inputReason.current.value,
-                groupchatId: gc.id
-            }
-            console.log(request_obj)
-            const response = await fetch('/api/reports', {
-                method: 'POST',
-                body: JSON.stringify(request_obj),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            if (response.ok) {
-                setValidated(true)
-                handleReportFormClose()
-                props.setShowReported(true)
-            } else {
-                console.log(response)
-                console.log('OOPS')
-                handleReportFormClose()
-                props.setShowReportedError(true)
-            }
+            console.log(response)
+            console.log('OOPS')
+            handleReportFormClose()
+            props.setShowReportedError(true)
         }
     }
 

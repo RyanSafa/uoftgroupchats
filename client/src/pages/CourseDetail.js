@@ -10,10 +10,10 @@ const CourseDetail = (props) => {
     const params = useParams()
     const [course, setCourse] = useState('COURSE NOT FOUND')
     const { code } = params
+    const [courseFound, setCourseFound] = useState(false)
     const sections_list = course === 'COURSE NOT FOUND' ? [] : ['Common', ...course.lectures]
     const groupchats = course === 'COURSE NOT FOUND' ? [] : [...course.Groupchats]
     const form_options = sections_list.map((lec) => <option key={lec}>{lec}</option>)
-    const [courseFound, setCourseFound] = useState(false)
 
     // New Groupchat Form Modal States //
     const [showNewForm, setShowNewForm] = useState(false);
@@ -23,13 +23,13 @@ const CourseDetail = (props) => {
         setShowAlert(false)
         setShowNewForm(true)
     };
-    // // // // // // // // // // // //
 
     // Groupchat Creation Success msg State
     const [showAlert, setShowAlert] = useState(false)
 
     // Groupchat Creation Error msg State
     const [showError, setShowError] = useState(false)
+    // // // // // // // // // // // //
 
     // GC Report Form Modal States // 
     const [showReportForm, setShowReportForm] = useState(false);
@@ -38,10 +38,13 @@ const CourseDetail = (props) => {
     const handleReportFormClose = () => setShowReportForm(false);
     const handleReportFormShow = (groupchat) => {
         setReportedGc(groupchat)
+        setShowReported(false)
         setShowReportForm(true)
     };
 
+    // Report Success Msg
     const [showReported, setShowReported] = useState(false)
+    // Report Failure Msg
     const [showReportedError, setShowReportedError] = useState(false)
     // // // // // // // // // // // //
 
@@ -58,7 +61,7 @@ const CourseDetail = (props) => {
         }
 
         fetchData(code)
-    }, [code, showAlert])
+    }, [code, showAlert, showReported])
 
     if (!courseFound) {
         return <Card className="p-2 align-items-center rounded" bg="secondary-red" text="white">
