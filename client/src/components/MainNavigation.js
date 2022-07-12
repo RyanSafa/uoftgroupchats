@@ -17,7 +17,12 @@ const MainNavigation = () => {
           />
         </Navbar.Brand>
         <Nav>
-          <Nav.Link href="https://github.com/RyanSafa/uoftgroupchats" target="_blank">GitHub</Nav.Link>
+          <Nav.Link
+            href="https://github.com/RyanSafa/uoftgroupchats"
+            target="_blank"
+          >
+            GitHub
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>
