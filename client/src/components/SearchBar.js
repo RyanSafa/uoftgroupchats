@@ -1,81 +1,80 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
+import useDebounce from "../hooks/useDebounce";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-import LoadingSpinner from "./LoadingSpinner";
-import { useEffect, useState } from "react";
-
+import "./SearchBar.css";
 const SearchBar = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [values, setValues] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [search, setSearch] = useState("");
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const debouncedSearch = useDebounce(search, 500);
+
+  // fetch courses
   useEffect(() => {
-    const fetchData = async (inputValue) => {
-      const response = await fetch(`/api/courses/search/${inputValue}`);
+    const fetchData = async () => {
+      const response = await fetch(`/api/courses/search/${debouncedSearch}`);
       const data = await response.json();
       const courseList = [];
       for (const course of data) {
         courseList.push(course);
       }
-      setValues(courseList);
-      setIsLoading(false)
+      setCourses(courseList);
+      setIsLoading(false);
     };
 
-    if (inputValue.length >= 3) {
-      setIsLoading(true)
-      fetchData(inputValue);
-    } else {
-      setValues([]);
+    if (debouncedSearch) {
+      setIsLoading(true);
+      fetchData();
     }
-  }, [inputValue]);
-
+  }, [debouncedSearch]);
+  console.log(isLoading);
   return (
     <Container
-      className={"d-flex flex-grow-1 flex-column align-items-center mt-5"}
       fluid
+      className={"d-flex flex-grow-1 align-items-center justify-content-center"}
     >
-      <Card
-        className="p-4"
-        bg="primary-blue"
-        border="primary-blue"
-        text="white"
-      >
-        <Form onSubmit={(e) => e.preventDefault()}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>
-              <h1>Find Group Chats for your Courses!</h1>
-            </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Course Code (e.g. MAT137)"
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            {isLoading && <LoadingSpinner />}
-            {!isLoading && values.length === 0 && inputValue.length >= 3 && <ListGroup><ListGroup.Item
-              key='nothing'
-            >
-              <span className="fw-bold">No such course found.</span>
-            </ListGroup.Item></ListGroup>}
-            {!isLoading && <ListGroup>
-              {values.map((value) => {
+      <Form>
+        <Form.Group controlId="searchInput">
+          <Form.Label>
+            <h3>
+              Welcome to UoftGroupchats! A Website to find Group Chats for your
+              courses at UofT. Search for a Course!
+            </h3>
+          </Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Course Code (e.g. MAT137)"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {debouncedSearch.length > 1 && (
+            <ListGroup>
+              {courses.map((course) => {
                 return (
                   <ListGroup.Item
                     action
-                    href={`/courses/${value.code}`}
+                    href={`/courses/${course.code}`}
                     variant="secondary-blue"
-                    key={value.id}
+                    key={course.id}
                   >
-                    <span className="fw-bold">{value.code}</span> -{" "}
-                    {value.title}
+                    <span className="fw-bold">{course.code}</span> -{" "}
+                    {course.title}
                   </ListGroup.Item>
                 );
               })}
-            </ListGroup>}
-          </Form.Group>
-        </Form>
-      </Card>
+            </ListGroup>
+          )}
+          {courses.length === 0 && debouncedSearch.length > 1 && (
+            <ListGroup>
+              <ListGroup.Item key="-1">
+                {console.log("rendered")}
+                <span className="fw-bold">No such course found.</span>
+              </ListGroup.Item>
+            </ListGroup>
+          )}
+        </Form.Group>
+      </Form>
     </Container>
   );
 };
