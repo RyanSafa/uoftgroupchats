@@ -32,8 +32,8 @@ const SearchBar = () => {
   return (
     <Form className={"pt-4"}>
       <Form.Group controlId="searchInput">
-        <Form.Label className={"mt-1"}>
-          <h4 className={"my-0"}>Search for a Course</h4>
+        <Form.Label className={"mt-1 p-0"}>
+          <h5 className={"my-0 p-0"}>Search for a Course</h5>
         </Form.Label>
         <Form.Control
           type="text"
