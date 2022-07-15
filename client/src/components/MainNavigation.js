@@ -2,19 +2,20 @@ import fullLogo from "../logos/uoftgroupchatslogofull.PNG";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-
+import phone_icon from "../chat.svg";
 const MainNavigation = () => {
   return (
     <>
       <Navbar bg="secondary-blue" variant="dark" expand="lg" sticky="top">
         <Container className="justify-content-space-between">
           <Navbar.Brand href="/">
+            UofT GroupChats
             <img
-              alt=""
-              src={fullLogo}
-              width="309"
-              height="50"
-              className="d-inline-block align-top"
+              src={phone_icon}
+              width="30"
+              height="30"
+              className="d-inline-block align-top mx-2"
+              alt="React Bootstrap logo"
             />
           </Navbar.Brand>
           <Nav>
