@@ -11,10 +11,13 @@ const MainPage = () => {
         <Container>
           <div className={"d-sm-flex"}>
             <div>
-              <h1 className="title" style={{ fontSize: "3.5rem" }}>
+              <h1
+                className="title gradient-text"
+                style={{ fontSize: "3.5rem" }}
+              >
                 Welcome to UofT Group Chats!
               </h1>
-              <h3 className={"my-3"} style={{ fontSize: "1.5rem" }}>
+              <h3 className={"my-4"} style={{ fontSize: "1.5rem" }}>
                 Find &amp; Upload Group Chats for your courses at the UofT
                 St.George Campus
               </h3>
