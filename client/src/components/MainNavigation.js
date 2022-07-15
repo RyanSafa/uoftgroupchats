@@ -1,8 +1,7 @@
-import fullLogo from "../logos/uoftgroupchatslogofull.PNG";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import phone_icon from "../chat.svg";
+import phone_icon from "../svgs/chat_box.svg";
 const MainNavigation = () => {
   return (
     <>

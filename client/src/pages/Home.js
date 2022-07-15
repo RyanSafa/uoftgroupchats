@@ -1,8 +1,8 @@
 import React from "react";
-import SearchBar from "../components/SearchBar";
+import MainPage from "../components/MainPage";
 
 const Home = () => {
-  return <SearchBar></SearchBar>;
+  return <MainPage></MainPage>;
 };
 
 export default Home;
