@@ -15,9 +15,9 @@ const MainPage = () => {
                 className="title gradient-text"
                 style={{ fontSize: "3.5rem" }}
               >
-                Welcome to UofT Group Chats!
+                Welcome to UofT GroupChats!
               </h1>
-              <h3 className={"my-4"} style={{ fontSize: "1.5rem" }}>
+              <h3 className={"mt-4"} style={{ fontSize: "1.5rem" }}>
                 Find &amp; Upload Group Chats for your courses at the UofT
                 St.George Campus
               </h3>

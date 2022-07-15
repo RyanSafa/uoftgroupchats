@@ -30,9 +30,9 @@ const SearchBar = () => {
   }, [debouncedSearch]);
 
   return (
-    <Form className={"pt-5"}>
+    <Form className={"pt-4"}>
       <Form.Group controlId="searchInput">
-        <Form.Label className={"mt-5"}>
+        <Form.Label className={"mt-1"}>
           <h4 className={"my-0"}>Search for a Course</h4>
         </Form.Label>
         <Form.Control
