@@ -1,7 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import chattingSVg from "../svgs/phone.svg";
-import "../styles/MainPage.css";
 import SearchBar from "./SearchBar";
 
 const MainPage = () => {
@@ -18,17 +17,21 @@ const MainPage = () => {
                 Welcome to UofT GroupChats!
               </h1>
               <h3 className={"mt-4"} style={{ fontSize: "1.5rem" }}>
-                Find &amp; Upload Group Chats for Your Courses at the UofT
-                St.George Campus
+                Find &amp; Upload Group Chats for Courses at the UofT St.George
+                Campus
               </h3>
               <SearchBar />
             </div>
-            <div className={"d-flex align-self-start"}>
+            <div className={"d-flex align-self-start flex-column"}>
               <Image
                 fluid
-                className={"w-50  flex-grow-1 px-5  d-none d-lg-block"}
+                className={"w-100  flex-grow-1 px-5 d-none d-lg-block"}
                 src={chattingSVg}
               />
+              <p className={"text-center subtext mt-1 d-none d-lg-block"}>
+                UofT GroupChats is not officially affiliated with the Univeristy
+                of Toronto.
+              </p>
             </div>
           </div>
         </Container>

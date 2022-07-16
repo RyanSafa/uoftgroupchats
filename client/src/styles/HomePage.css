@@ -2,7 +2,6 @@ a:link {
   text-decoration: none;
   color: black;
 }
-
 fieldset {
   color: white;
 }
@@ -11,7 +10,7 @@ a:visited {
   color: black;
 }
 
-a:hover {
+Form a:hover {
   text-decoration: underline;
 }
 
@@ -36,23 +35,9 @@ h3 {
 .form-label {
   color: white;
 }
-.custom-shape-divider-bottom-1657903693 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(180deg);
-}
 
-.custom-shape-divider-bottom-1657903693 svg {
-  position: relative;
-  display: block;
-  width: calc(113% + 1.3px);
-  height: 101px;
-}
-
-.custom-shape-divider-bottom-1657903693 .shape-fill {
-  fill: #008bb0;
+.subtext {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: rgb(231, 231, 231);
 }
