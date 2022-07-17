@@ -1,0 +1,7 @@
+.filter-white {
+  filter: invert(100%) sepia(0%) saturate(4452%) hue-rotate(243deg)
+    brightness(115%) contrast(105%);
+}
+a:hover {
+  text-decoration: none;
+}

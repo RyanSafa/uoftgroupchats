@@ -1,82 +1,72 @@
-import React from "react";
+import useDebounce from "../hooks/useDebounce";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
-import LoadingSpinner from "./LoadingSpinner";
-import { useEffect, useState } from "react";
 
 const SearchBar = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [values, setValues] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [search, setSearch] = useState("");
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  const debouncedSearch = useDebounce(search, 500);
+
+  // fetch courses
   useEffect(() => {
-    const fetchData = async (inputValue) => {
-      const response = await fetch(`/api/courses/search/${inputValue}`);
+    const fetchData = async () => {
+      const response = await fetch(`/api/courses/search/${debouncedSearch}`);
       const data = await response.json();
       const courseList = [];
       for (const course of data) {
         courseList.push(course);
       }
-      setValues(courseList);
-      setIsLoading(false)
+      setCourses(courseList);
+      setIsLoading(false);
     };
 
-    if (inputValue.length >= 3) {
-      setIsLoading(true)
-      fetchData(inputValue);
-    } else {
-      setValues([]);
+    if (debouncedSearch) {
+      setIsLoading(true);
+      fetchData();
     }
-  }, [inputValue]);
+  }, [debouncedSearch]);
 
   return (
-    <Container
-      className={"d-flex flex-grow-1 flex-column align-items-center mt-5"}
-      fluid
-    >
-      <Card
-        className="p-4"
-        bg="primary-blue"
-        border="primary-blue"
-        text="white"
-      >
-        <Form onSubmit={(e) => e.preventDefault()}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>
-              <h1>Find Group Chats for your Courses!</h1>
-            </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Course Code (e.g. MAT137)"
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            {isLoading && <LoadingSpinner />}
-            {!isLoading && values.length === 0 && inputValue.length >= 3 && <ListGroup><ListGroup.Item
-              key='nothing'
-            >
+    <Form className={"pt-4"}>
+      <Form.Group controlId="searchInput">
+        <Form.Label className={"mt-1 p-0"}>
+          <h5 className={"my-0 p-0"}>Search for a Course</h5>
+        </Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Course Code (e.g. MAT137)"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        {debouncedSearch.length > 1 && (
+          <ListGroup>
+            {courses.map((course) => {
+              return (
+                <ListGroup.Item
+                  action
+                  href={`/courses/${course.code}`}
+                  variant="secondary-blue"
+                  key={course.id}
+                >
+                  <span className="fw-bold">{course.code}</span> -{" "}
+                  {course.title}
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
+        )}
+        {courses.length === 0 && debouncedSearch.length > 1 && (
+          <ListGroup>
+            <ListGroup.Item key="-1">
+              {console.log("rendered")}
               <span className="fw-bold">No such course found.</span>
-            </ListGroup.Item></ListGroup>}
-            {!isLoading && <ListGroup>
-              {values.map((value) => {
-                return (
-                  <ListGroup.Item
-                    action
-                    href={`/courses/${value.code}`}
-                    variant="secondary-blue"
-                    key={value.id}
-                  >
-                    <span className="fw-bold">{value.code}</span> -{" "}
-                    {value.title}
-                  </ListGroup.Item>
-                );
-              })}
-            </ListGroup>}
-          </Form.Group>
-        </Form>
-      </Card>
-    </Container>
+            </ListGroup.Item>
+          </ListGroup>
+        )}
+      </Form.Group>
+    </Form>
   );
 };
 

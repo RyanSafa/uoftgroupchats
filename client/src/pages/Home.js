@@ -1,8 +1,14 @@
 import React from "react";
-import SearchBar from "../components/SearchBar";
-
+import MainPage from "../components/MainPage";
+import "../styles/HomePage.css";
+import Footer from "../components/Footer";
 const Home = () => {
-  return <SearchBar></SearchBar>;
+  return (
+    <>
+      <MainPage></MainPage>
+      <Footer></Footer>
+    </>
+  );
 };
 
 export default Home;
