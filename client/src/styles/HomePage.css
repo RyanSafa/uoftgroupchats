@@ -22,6 +22,11 @@ h3 {
   color: white;
 }
 
+body {
+  background-color: #002a5c;
+  background-image: url("../svgs/background.svg");
+}
+
 .gradient-text {
   background-color: white;
   background-image: linear-gradient(45deg, #b94f7a, #f9f871);

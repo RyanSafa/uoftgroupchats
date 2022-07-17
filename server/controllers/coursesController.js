@@ -35,7 +35,7 @@ const getCourse = async (req, res, next) => {
     }
   } catch (error) {
     if (error.message === "Not Found") {
-      next({ status: 404, message: "Book not found" });
+      next({ status: 404, message: "Course not found" });
     } else {
       next({ status: 500, message: "" });
     }

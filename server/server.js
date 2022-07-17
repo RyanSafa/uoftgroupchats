@@ -18,7 +18,7 @@ app.use("/api/groupchats", groupchatRoutes);
 app.use("/api/reports", reportRoutes);
 
 app.use("/*", (req, res, next) => {
-  next({ stats: 404, message: "Page not found." });
+  next({ status: 404, message: "Page not found." });
 });
 
 app.use(ErrorHandler);
