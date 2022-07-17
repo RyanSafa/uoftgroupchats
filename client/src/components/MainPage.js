@@ -6,9 +6,9 @@ import SearchBar from "./SearchBar";
 const MainPage = () => {
   return (
     <>
-      <Container className="my-5 p-0 ">
+      <Container className="p-5 p-0 ">
         <div className={"d-flex justify-content-center"}>
-          <div className="">
+          <div style={{ minWidth: 0 }}>
             <h1 className="title gradient-text" style={{ fontSize: "3.5rem" }}>
               Welcome to UofT GroupChats!
             </h1>
