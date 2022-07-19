@@ -71,47 +71,60 @@ const CourseDetail = (props) => {
   }
 
   return (
-    <Container fluid>
-      <Row
+    <>
+      <div
+        className="jumbotron jumbotron-fluid"
         style={{ backgroundColor: "#002a5c" }}
-        className="justify-content-between align-items-center"
       >
-        <Col className="text-white" sm={10}>
-          <div className="px-5 py-3">
-            <h1 className="font-weight-bold ">{course.code}</h1>
-            <h3>{course.title}</h3>
-          </div>
-        </Col>
-        <Col className="text-center" sm={2}>
-          <Button className="add-groupchat">Add a Groupchat</Button>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col xl="auto" className="my-3">
-          <InputGroup>
-            <InputGroup.Text>Lecture Session</InputGroup.Text>
-            <DropdownButton
-              variant="outline-primary-blue"
-              onSelect={(eKey) => setSelectedLecture(eKey)}
-              title={selectedLecture}
-              id="input-group-dropdown-1"
-              className="custom-squared-button"
+        <Container>
+          <Row className="justify-content-between">
+            <Col md={10} className="text-white my-auto course-title">
+              <div className="">
+                <h1 className="font-weight-bold ">{course.code}</h1>
+                <h3>{course.title}</h3>
+              </div>
+            </Col>
+            <Col
+              md={2}
+              className=" my-md-auto text-center lower-button-padding "
             >
-              <Dropdown.Item id="Common" key="Common" eventKey="Common">
-                Common
-              </Dropdown.Item>
-              {course?.lectures?.map((lecture) => {
-                return (
-                  <Dropdown.Item id={lecture} key={lecture} eventKey={lecture}>
-                    {lecture}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-          </InputGroup>
-        </Col>
-      </Row>
-    </Container>
+              <Button className="add-groupchat">Add a Groupchat</Button>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+      <Container>
+        <Row className="justify-content-center">
+          <Col xl="auto" className="my-3">
+            <InputGroup>
+              <InputGroup.Text>Lecture Session</InputGroup.Text>
+              <DropdownButton
+                variant="outline-primary-blue"
+                onSelect={(eKey) => setSelectedLecture(eKey)}
+                title={selectedLecture}
+                id="input-group-dropdown-1"
+                className="custom-squared-button"
+              >
+                <Dropdown.Item id="Common" key="Common" eventKey="Common">
+                  Common
+                </Dropdown.Item>
+                {course?.lectures?.map((lecture) => {
+                  return (
+                    <Dropdown.Item
+                      id={lecture}
+                      key={lecture}
+                      eventKey={lecture}
+                    >
+                      {lecture}
+                    </Dropdown.Item>
+                  );
+                })}
+              </DropdownButton>
+            </InputGroup>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

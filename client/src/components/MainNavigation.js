@@ -38,7 +38,6 @@ const MainNavigation = () => {
               target="_blank"
             >
               <div className={isCourseDetailPage ? "text-black" : ""}>
-                {" "}
                 GitHub
               </div>
             </Nav.Link>

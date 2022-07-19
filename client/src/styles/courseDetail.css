@@ -23,3 +23,13 @@
 .dropdown-menu {
   border-radius: 0;
 }
+
+@media (max-width: 767.98px) {
+  .course-title {
+    text-align: center;
+  }
+  .lower-button-padding {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}
