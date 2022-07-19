@@ -14,4 +14,6 @@ router.post(
   groupchatsController.createGroupchat
 );
 
+router.get("/:courseId/:lecture", groupchatsController.getGroupchats);
+
 module.exports = router;

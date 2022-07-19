@@ -2,6 +2,10 @@
   filter: invert(100%) sepia(0%) saturate(4452%) hue-rotate(243deg)
     brightness(115%) contrast(105%);
 }
+.filter-blue {
+  filter: invert(10%) sepia(94%) saturate(2255%) hue-rotate(200deg)
+    brightness(89%) contrast(102%);
+}
 a:hover {
   text-decoration: none;
 }

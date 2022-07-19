@@ -20,6 +20,27 @@ const createGroupchat = async (req, res, next) => {
   }
 };
 
+const getGroupchats = async (req, res, next) => {
+  const { courseId, lecture } = req.params;
+  const query = {
+    where: {
+      lecture,
+      courseId,
+    },
+  };
+  try {
+    const groupchats = await Groupchat.findAll(query);
+    return res.send(groupchats);
+  } catch (error) {
+    if (error instanceof Sequelize.ForeignKeyConstraintError) {
+      next({ stats: 400, message: "Invalid courseId" });
+    } else {
+      next({ status: 500, message: "" });
+    }
+  }
+};
+
 module.exports = {
   createGroupchat,
+  getGroupchats,
 };

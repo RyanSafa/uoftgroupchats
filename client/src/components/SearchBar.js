@@ -36,12 +36,13 @@ const SearchBar = () => {
           <h5 className={"my-0 p-0"}>Search for a Course</h5>
         </Form.Label>
         <Form.Control
+          style={{ borderRadius: "0" }}
           type="text"
           placeholder="Course Code (e.g. MAT137)"
           onChange={(e) => setSearch(e.target.value)}
         />
         {debouncedSearch.length > 1 && (
-          <ListGroup>
+          <ListGroup style={{ borderRadius: "0" }}>
             {courses.map((course) => {
               return (
                 <ListGroup.Item
@@ -60,7 +61,6 @@ const SearchBar = () => {
         {courses.length === 0 && debouncedSearch.length > 1 && (
           <ListGroup>
             <ListGroup.Item key="-1">
-              {console.log("rendered")}
               <span className="fw-bold">No such course found.</span>
             </ListGroup.Item>
           </ListGroup>

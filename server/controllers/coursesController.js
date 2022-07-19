@@ -21,13 +21,14 @@ const serachCourses = async (req, res, next) => {
 
 const getCourse = async (req, res, next) => {
   const { code } = req.params;
+  const sqlQuery = {
+    where: {
+      code,
+    },
+  };
+
   try {
-    const course = await Course.findOne({
-      include: Groupchat,
-      where: {
-        code,
-      },
-    });
+    const course = await Course.findOne(sqlQuery);
     if (course) {
       return res.send(course);
     } else {
@@ -37,6 +38,7 @@ const getCourse = async (req, res, next) => {
     if (error.message === "Not Found") {
       next({ status: 404, message: "Course not found" });
     } else {
+      console.log(error);
       next({ status: 500, message: "" });
     }
   }

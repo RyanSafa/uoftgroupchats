@@ -1,0 +1,25 @@
+.input-group button {
+  border-radius: 0;
+}
+.add-groupchat {
+  border-radius: 0;
+  color: white;
+  background-color: #002a5c;
+  border: 1px solid white;
+}
+.add-groupchat:hover {
+  background-color: white;
+  color: #002a5c;
+}
+.input-group-text {
+  background-color: white;
+  border-radius: 0;
+}
+.dropdown-item:hover {
+  color: #1e2125;
+  background-color: hsl(193, 100%, 35%, 0.2);
+}
+
+.dropdown-menu {
+  border-radius: 0;
+}
