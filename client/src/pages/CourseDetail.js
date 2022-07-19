@@ -17,10 +17,16 @@ const CourseDetail = (props) => {
   const [course, setCourse] = useState({});
   const [selectedLecture, setSelectedLecture] = useState("Common");
   const [groupchats, setGroupchats] = useState([]);
-  const [courseFormOpen, setCourseFormOpen] = useState(false);
+  const [showGroupChatModal, setShowGroupChatModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [httpError, setHttpError] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [showError, setShowError] = useState(false);
 
+  const handleGroupChatShow = () => {
+    setShowGroupChatModal(true);
+  };
+  const handleGroupChatClose = () => setShowGroupChatModal(false);
   useEffect(() => {
     setIsLoading(true);
     const fetchCourse = async () => {
@@ -70,6 +76,10 @@ const CourseDetail = (props) => {
     );
   }
 
+  const form_options = course?.lectures?.map((lec) => (
+    <option key={lec}>{lec}</option>
+  ));
+
   return (
     <>
       <div
@@ -78,7 +88,7 @@ const CourseDetail = (props) => {
       >
         <Container>
           <Row className="justify-content-between">
-            <Col md={10} className="text-white my-auto course-title">
+            <Col md={10} className="text-white py-2 my-auto course-title">
               <div className="">
                 <h1 className="font-weight-bold ">{course.code}</h1>
                 <h3>{course.title}</h3>
@@ -88,14 +98,16 @@ const CourseDetail = (props) => {
               md={2}
               className=" my-md-auto text-center lower-button-padding "
             >
-              <Button className="add-groupchat">Add a Groupchat</Button>
+              <Button onClick={handleGroupChatShow} className="add-groupchat">
+                Add a Groupchat
+              </Button>
             </Col>
           </Row>
         </Container>
       </div>
       <Container>
-        <Row className="justify-content-center">
-          <Col xl="auto" className="my-3">
+        <Row className="justify-content-md-center">
+          <Col xs="auto" className="my-3 text-center">
             <InputGroup>
               <InputGroup.Text>Lecture Session</InputGroup.Text>
               <DropdownButton
@@ -124,6 +136,13 @@ const CourseDetail = (props) => {
           </Col>
         </Row>
       </Container>
+      <NewChatModal
+        showNewForm={showGroupChatModal}
+        handleNewFormClose={handleGroupChatClose}
+        form_options={form_options}
+        setShowAlert={setShowAlert}
+        setShowError={setShowError}
+      ></NewChatModal>
     </>
   );
 };
