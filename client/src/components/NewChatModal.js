@@ -52,7 +52,6 @@ const NewChatModal = (props) => {
       }
     }
   };
-  console.log(showNewForm);
   return (
     <Modal show={showNewForm} onHide={handleNewFormClose}>
       <Modal.Header closeButton>

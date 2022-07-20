@@ -1,5 +1,5 @@
 .input-group button {
-  border-radius: 0;
+  /* border-radius: 0; */
 }
 .add-groupchat {
   border-radius: 0;
@@ -13,7 +13,7 @@
 }
 .input-group-text {
   background-color: white;
-  border-radius: 0;
+  /* border-radius: 0; */
 }
 .dropdown-item:hover {
   color: #1e2125;
@@ -21,7 +21,7 @@
 }
 
 .dropdown-menu {
-  border-radius: 0;
+  /* border-radius: 0; */
 }
 
 @media (max-width: 767.98px) {

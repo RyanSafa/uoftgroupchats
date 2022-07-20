@@ -11,11 +11,21 @@ const getRequest = async () => {
     for (const course in courses) {
       const courseData = courses[course];
       const { code, section, courseTitle, meetings } = courseData;
+      let codeName;
+      if (section === "Y") {
+        codeName = code;
+      } else {
+        codeName = `${code}-${section}`;
+      }
+
       const index = courseDict.courses.push({
-        code: `${code}-${section}`,
+        code: codeName,
         title: courseTitle,
         lectures: [],
       });
+
+      courseDict.courses[index - 1].lectures.push("Unspecified Lecture");
+
       for (meeting in meetings) {
         if (meeting.slice(0, 3) === "LEC") {
           courseDict.courses[index - 1].lectures.push(meeting);

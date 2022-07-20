@@ -10,12 +10,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import GroupchatCard from "../components/GroupchatCard";
 import "../styles/courseDetail.css";
 const CourseDetail = (props) => {
   const params = useParams();
   const { code } = params;
   const [course, setCourse] = useState({});
-  const [selectedLecture, setSelectedLecture] = useState("Common");
+  const [selectedLecture, setSelectedLecture] = useState("Unspecified Lecture");
   const [groupchats, setGroupchats] = useState([]);
   const [showGroupChatModal, setShowGroupChatModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -79,7 +80,7 @@ const CourseDetail = (props) => {
   const form_options = course?.lectures?.map((lec) => (
     <option key={lec}>{lec}</option>
   ));
-
+  console.log(groupchats);
   return (
     <>
       <div
@@ -117,9 +118,6 @@ const CourseDetail = (props) => {
                 id="input-group-dropdown-1"
                 className="custom-squared-button"
               >
-                <Dropdown.Item id="Common" key="Common" eventKey="Common">
-                  Common
-                </Dropdown.Item>
                 {course?.lectures?.map((lecture) => {
                   return (
                     <Dropdown.Item
@@ -134,6 +132,21 @@ const CourseDetail = (props) => {
               </DropdownButton>
             </InputGroup>
           </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row className="row-cols-2 row-cols-md-4 g-4">
+          {groupchats?.map((gc) => {
+            return (
+              <Col key={gc.id}>
+                <GroupchatCard
+                  type={gc.type}
+                  link={gc.link}
+                  createdAt={gc.createdAt}
+                ></GroupchatCard>
+              </Col>
+            );
+          })}
         </Row>
       </Container>
       <NewChatModal
