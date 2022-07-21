@@ -1,11 +1,15 @@
 .input-group button {
-  /* border-radius: 0; */
+  border-radius: 0;
 }
 .add-groupchat {
   border-radius: 0;
   color: white;
+  transition: ease-in 0.2s;
   background-color: #002a5c;
   border: 1px solid white;
+}
+.dropdown-toggle {
+  transition: ease-in 0.2s;
 }
 .add-groupchat:hover {
   background-color: white;
@@ -13,17 +17,20 @@
 }
 .input-group-text {
   background-color: white;
-  /* border-radius: 0; */
+  border-radius: 0;
 }
+
 .dropdown-item:hover {
   color: #1e2125;
   background-color: hsl(193, 100%, 35%, 0.2);
 }
 
 .dropdown-menu {
-  /* border-radius: 0; */
+  border-radius: 0;
 }
-
+.no-course-found {
+  font-size: 1.5rem;
+}
 @media (max-width: 767.98px) {
   .course-title {
     text-align: center;

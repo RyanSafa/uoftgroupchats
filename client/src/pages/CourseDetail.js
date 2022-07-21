@@ -1,9 +1,7 @@
-import ReportModal from "../components/ReportModal";
 import NewChatModal from "../components/NewChatModal";
-import LoadingSpinner from "../components/LoadingSpinner";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect, useMemo } from "react";
-import Container from "react-bootstrap/esm/Container";
+import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -20,6 +18,7 @@ const CourseDetail = (props) => {
   const [groupchats, setGroupchats] = useState([]);
   const [showGroupChatModal, setShowGroupChatModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGroupchatLoading, setIsGroupchatLoading] = useState(false);
   const [httpError, setHttpError] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -50,24 +49,24 @@ const CourseDetail = (props) => {
   const { id } = course;
 
   useEffect(() => {
+    setIsGroupchatLoading(true);
     const fetchGroupchats = async () => {
       const response = await fetch(`/api/groupchats/${id}/${selectedLecture}`);
       const data = await response.json();
       if (response.ok) {
         setGroupchats(data);
+        setIsGroupchatLoading(false);
       } else {
         throw new Error(data.message, { cause: data.status });
       }
     };
     if (id)
       fetchGroupchats().catch((error) => {
+        setIsGroupchatLoading(false);
         setHttpError({ message: error.message, status: error.cause });
       });
   }, [id, selectedLecture]);
 
-  if (isLoading) {
-    return;
-  }
   if (httpError) {
     return (
       <div>
@@ -134,19 +133,31 @@ const CourseDetail = (props) => {
           </Col>
         </Row>
       </Container>
-      <Container>
-        <Row className="row-cols-2 row-cols-md-4 g-4">
-          {groupchats?.map((gc) => {
-            return (
-              <Col key={gc.id}>
-                <GroupchatCard
-                  type={gc.type}
-                  link={gc.link}
-                  createdAt={gc.createdAt}
-                ></GroupchatCard>
-              </Col>
-            );
-          })}
+      <Container className="mb-4">
+        <Row
+          className={`${
+            groupchats.length > 0
+              ? "row-cols-2 row-cols-md-4 row-cols-lg-5 g-4"
+              : ""
+          }`}
+        >
+          {groupchats?.length > 0 &&
+            !isGroupchatLoading &&
+            groupchats?.map((gc) => {
+              return (
+                <Col className="" key={gc.id}>
+                  <GroupchatCard groupchat={gc}></GroupchatCard>
+                </Col>
+              );
+            })}
+
+          {groupchats?.length === 0 && !isGroupchatLoading && (
+            <Col className="text-center">
+              <h2 className="no-course-found">
+                No Group Chats Found! Add one if you can!
+              </h2>
+            </Col>
+          )}
         </Row>
       </Container>
       <NewChatModal
@@ -155,6 +166,7 @@ const CourseDetail = (props) => {
         form_options={form_options}
         setShowAlert={setShowAlert}
         setShowError={setShowError}
+        courseId={course?.id}
       ></NewChatModal>
     </>
   );

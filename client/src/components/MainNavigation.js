@@ -6,11 +6,13 @@ import "../styles/MainNavigation.css";
 import { useLocation } from "react-router-dom";
 const MainNavigation = () => {
   const { pathname } = useLocation();
-  const isCourseDetailPage = pathname.includes("/courses");
+  console.log(pathname);
+  const isHomePage = pathname === "/";
+  console.log(isHomePage);
   return (
     <>
       <Navbar
-        bg={isCourseDetailPage ? "white" : "secondary-blue"}
+        bg={!isHomePage ? "white" : "secondary-blue"}
         variant="dark"
         expand="lg"
         sticky="top"
@@ -18,7 +20,7 @@ const MainNavigation = () => {
         <Container className="justify-content-space-between ">
           <Navbar.Brand
             href="/"
-            className={"fw-bold " + (isCourseDetailPage ? "text-black" : "")}
+            className={"fw-bold " + (!isHomePage ? "text-black" : "")}
           >
             UofT GroupChats
             <img
@@ -27,7 +29,7 @@ const MainNavigation = () => {
               height="30"
               className={
                 "d-inline-block align-top mx-2 " +
-                (isCourseDetailPage ? "filter-blue" : "filter-white")
+                (!isHomePage ? "filter-blue" : "filter-white")
               }
               alt="Chat icon"
             />
@@ -37,9 +39,7 @@ const MainNavigation = () => {
               href="https://github.com/RyanSafa/uoftgroupchats"
               target="_blank"
             >
-              <div className={isCourseDetailPage ? "text-black" : ""}>
-                GitHub
-              </div>
+              <div className={!isHomePage ? "text-black" : ""}>GitHub</div>
             </Nav.Link>
           </Nav>
         </Container>

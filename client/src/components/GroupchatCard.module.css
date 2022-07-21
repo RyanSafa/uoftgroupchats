@@ -1,0 +1,26 @@
+.footer {
+  font-size: 0.875rem;
+}
+
+.square {
+  border-radius: 0;
+  transition: 0.3s;
+}
+.link a {
+  font-size: 1rem;
+  text-decoration: none;
+}
+.link a:hover {
+  text-decoration: dotted;
+}
+.report {
+  border-radius: 0;
+  color: #002a5c;
+  border: 1px solid black;
+  transition: ease-in 0.2s;
+}
+
+.report:hover {
+  color: white;
+  background-color: #002a5c;
+}

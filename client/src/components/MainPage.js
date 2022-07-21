@@ -10,7 +10,7 @@ const MainPage = () => {
         <div className={"d-flex justify-content-center"}>
           <div style={{ minWidth: 0 }}>
             <h1 className="title gradient-text" style={{ fontSize: "3.5rem" }}>
-              Welcome to UofT GroupChats!
+              Welcome to UofT GroupChats
             </h1>
             <h3 className={"mt-4"} style={{ fontSize: "1.5rem" }}>
               Find &amp; Upload Group Chats for Courses at the UofT St.George

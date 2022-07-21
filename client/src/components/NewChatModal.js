@@ -35,6 +35,7 @@ const NewChatModal = (props) => {
         lecture: lecRef.current.value,
         courseId,
       };
+      console.log(request_obj);
       const response = await fetch("/api/groupchats/", {
         method: "POST",
         body: JSON.stringify(request_obj),
@@ -55,24 +56,24 @@ const NewChatModal = (props) => {
   return (
     <Modal show={showNewForm} onHide={handleNewFormClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Create a new groupchat!</Modal.Title>
+        <Modal.Title>Create a New Group Chat!</Modal.Title>
       </Modal.Header>
       <Container>
         <Form onSubmit={addChatHandler}>
           <Form.Group className="mb-3" controlId="formSection">
-            <Form.Label>Lecture Section</Form.Label>
+            <Form.Label>Lecture Section:</Form.Label>
             <Form.Select ref={lecRef} defaultValue={location.hash.substring(1)}>
               {form_options}
             </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formType">
-            <Form.Label>Groupchat Type</Form.Label>
+            <Form.Label>Groupchat Type:</Form.Label>
             <Form.Select ref={typeRef}>{type_options}</Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formChatLink">
-            <Form.Label>GroupChat Link</Form.Label>
+            <Form.Label>Group Chat Link:</Form.Label>
             <Form.Control
               type="url"
               placeholder="https://example.com"
