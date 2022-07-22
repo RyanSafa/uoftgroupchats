@@ -6,9 +6,7 @@ import "../styles/MainNavigation.css";
 import { useLocation } from "react-router-dom";
 const MainNavigation = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
   const isHomePage = pathname === "/";
-  console.log(isHomePage);
   return (
     <>
       <Navbar

@@ -38,7 +38,6 @@ const getCourse = async (req, res, next) => {
     if (error.message === "Not Found") {
       next({ status: 404, message: "Course not found" });
     } else {
-      console.log(error);
       next({ status: 500, message: "" });
     }
   }

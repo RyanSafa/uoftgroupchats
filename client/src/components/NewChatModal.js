@@ -14,43 +14,38 @@ const NewChatModal = (props) => {
     "Telegram",
     "Slack",
   ];
-  const type_options = types.map((type) => <option key={type}>{type}</option>);
   const lecRef = useRef();
   const typeRef = useRef();
   const urlRef = useRef();
-  const { courseId, showNewForm, handleNewFormClose, form_options } = props;
 
-  const [validated, setValidated] = useState(true);
-
-  const location = useLocation();
+  const {
+    courseId,
+    showNewForm,
+    handleNewFormClose,
+    lectures,
+    selectedLecture,
+  } = props;
 
   const addChatHandler = async (event) => {
     event.preventDefault();
-    if (urlRef.current.value === "") {
-      setValidated(false);
+    const request_obj = {
+      type: typeRef.current.value,
+      link: urlRef.current.value,
+      lecture: lecRef.current.value,
+      courseId,
+    };
+    const response = await fetch("/api/groupchats/", {
+      method: "POST",
+      body: JSON.stringify(request_obj),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      handleNewFormClose();
+      props.setShowAlert(true);
     } else {
-      const request_obj = {
-        type: typeRef.current.value,
-        link: urlRef.current.value,
-        lecture: lecRef.current.value,
-        courseId,
-      };
-      console.log(request_obj);
-      const response = await fetch("/api/groupchats/", {
-        method: "POST",
-        body: JSON.stringify(request_obj),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        setValidated(true);
-        handleNewFormClose();
-        props.setShowAlert(true);
-      } else {
-        console.log("OOPS");
-        props.setShowError(true);
-      }
+      props.setShowError(true);
     }
   };
   return (
@@ -59,17 +54,27 @@ const NewChatModal = (props) => {
         <Modal.Title>Create a New Group Chat!</Modal.Title>
       </Modal.Header>
       <Container>
-        <Form onSubmit={addChatHandler}>
+        <Form onSubmit={addChatHandler} noValidate>
           <Form.Group className="mb-3" controlId="formSection">
             <Form.Label>Lecture Section:</Form.Label>
-            <Form.Select ref={lecRef} defaultValue={location.hash.substring(1)}>
-              {form_options}
+            <Form.Select ref={lecRef} defaultValue={selectedLecture}>
+              {lectures.map((lec) => {
+                return (
+                  <option value={lec} key={lec}>
+                    {lec}
+                  </option>
+                );
+              })}
             </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formType">
             <Form.Label>Groupchat Type:</Form.Label>
-            <Form.Select ref={typeRef}>{type_options}</Form.Select>
+            <Form.Select ref={typeRef}>
+              {types.map((type) => (
+                <option key={type}>{type}</option>
+              ))}
+            </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formChatLink">
@@ -78,11 +83,7 @@ const NewChatModal = (props) => {
               type="url"
               placeholder="https://example.com"
               ref={urlRef}
-              className={validated ? "" : "invalid-url"}
             />
-            {!validated && (
-              <p style={{ color: "red" }}>Please enter a valid URL</p>
-            )}
           </Form.Group>
           <Button variant="secondary-blue" type="Submit" className="mb-4 mx-1">
             Save Changes

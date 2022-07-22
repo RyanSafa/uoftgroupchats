@@ -13,28 +13,33 @@ import "../styles/courseDetail.css";
 const CourseDetail = (props) => {
   const params = useParams();
   const { code } = params;
-  const [course, setCourse] = useState({});
+  const [course, setCourse] = useState({
+    code: "",
+    createdAt: "",
+    id: "",
+    lectures: [],
+    title: "",
+    updatedAt: "",
+  });
   const [selectedLecture, setSelectedLecture] = useState("Unspecified Lecture");
   const [groupchats, setGroupchats] = useState([]);
   const [showGroupChatModal, setShowGroupChatModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isGroupchatLoading, setIsGroupchatLoading] = useState(false);
   const [httpError, setHttpError] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
-
   const handleGroupChatShow = () => {
     setShowGroupChatModal(true);
   };
   const handleGroupChatClose = () => setShowGroupChatModal(false);
   useEffect(() => {
-    setIsLoading(true);
     const fetchCourse = async () => {
       const response = await fetch(`/api/courses/${code}`);
       const data = await response.json();
       if (response.ok) {
-        setCourse(data);
         setIsLoading(false);
+        setCourse(data);
       } else {
         throw new Error(data.message, { cause: data.status });
       }
@@ -46,7 +51,7 @@ const CourseDetail = (props) => {
     });
   }, [code]);
 
-  const { id } = course;
+  const { id, lectures } = course;
 
   useEffect(() => {
     setIsGroupchatLoading(true);
@@ -66,7 +71,13 @@ const CourseDetail = (props) => {
         setHttpError({ message: error.message, status: error.cause });
       });
   }, [id, selectedLecture]);
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
 
+  if (isGroupchatLoading) {
+    return <div>Loading Groupchats</div>;
+  }
   if (httpError) {
     return (
       <div>
@@ -75,11 +86,6 @@ const CourseDetail = (props) => {
       </div>
     );
   }
-
-  const form_options = course?.lectures?.map((lec) => (
-    <option key={lec}>{lec}</option>
-  ));
-  console.log(groupchats);
   return (
     <>
       <div
@@ -163,10 +169,11 @@ const CourseDetail = (props) => {
       <NewChatModal
         showNewForm={showGroupChatModal}
         handleNewFormClose={handleGroupChatClose}
-        form_options={form_options}
+        lectures={lectures}
+        selectedLecture={selectedLecture}
         setShowAlert={setShowAlert}
         setShowError={setShowError}
-        courseId={course?.id}
+        courseId={id}
       ></NewChatModal>
     </>
   );
