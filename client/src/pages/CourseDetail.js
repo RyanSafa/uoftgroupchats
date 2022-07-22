@@ -29,6 +29,25 @@ const CourseDetail = (props) => {
   const [httpError, setHttpError] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [showError, setShowError] = useState(false);
+
+  const reloadGroupchats = (lec, id) => {
+    setIsGroupchatLoading(true);
+    const fetchGroupchats = async () => {
+      const response = await fetch(`/api/groupchats/${id}/${lec}`);
+      const data = await response.json();
+      if (response.ok) {
+        setGroupchats(data);
+        setIsGroupchatLoading(false);
+      } else {
+        throw new Error(data.message, { cause: data.status });
+      }
+    };
+    if (id)
+      fetchGroupchats().catch((error) => {
+        setIsGroupchatLoading(false);
+        setHttpError({ message: error.message, status: error.cause });
+      });
+  };
   const handleGroupChatShow = () => {
     setShowGroupChatModal(true);
   };
@@ -171,6 +190,7 @@ const CourseDetail = (props) => {
         handleNewFormClose={handleGroupChatClose}
         lectures={lectures}
         selectedLecture={selectedLecture}
+        reloadGroupchats={reloadGroupchats}
         setShowAlert={setShowAlert}
         setShowError={setShowError}
         courseId={id}

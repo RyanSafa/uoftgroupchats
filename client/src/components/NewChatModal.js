@@ -24,6 +24,7 @@ const NewChatModal = (props) => {
     handleNewFormClose,
     lectures,
     selectedLecture,
+    reloadGroupchats,
   } = props;
 
   const addChatHandler = async (event) => {
@@ -44,6 +45,7 @@ const NewChatModal = (props) => {
     if (response.ok) {
       handleNewFormClose();
       props.setShowAlert(true);
+      reloadGroupchats(lecRef.current.value, courseId);
     } else {
       props.setShowError(true);
     }

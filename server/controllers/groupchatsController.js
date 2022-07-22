@@ -12,6 +12,7 @@ const createGroupchat = async (req, res, next) => {
     });
     return res.send(groupchat);
   } catch (error) {
+    console.log(error);
     if (error instanceof Sequelize.ForeignKeyConstraintError) {
       next({ stats: 400, message: "Invalid courseId" });
     } else {
