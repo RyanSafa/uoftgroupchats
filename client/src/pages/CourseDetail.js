@@ -238,7 +238,7 @@ const CourseDetail = (props) => {
           {groupchats?.length === 0 && !isGroupchatLoading && (
             <Col className="text-center">
               <h2 className="no-course-found">
-                No Group Chats Found! Add one if you can!
+                No Group Chats Found. Please Add one if you can!
               </h2>
             </Col>
           )}

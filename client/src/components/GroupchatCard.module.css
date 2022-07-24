@@ -24,3 +24,11 @@
   color: white;
   background-color: #002a5c;
 }
+
+.copy {
+  font-size: 0.75rem;
+  cursor: poiter;
+}
+.copy:hover {
+  text-decoration: underline;
+}

@@ -25,7 +25,7 @@ const GroupchatCard = (props) => {
         <Card.Header className="text-left text-primary-black fw-bold">
           <div>{type}</div>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="d-flex flex-column justify-content-between">
           <Card.Text className={classes.link}>
             <Card.Link href={link}>{link}</Card.Link>
           </Card.Text>
@@ -33,10 +33,7 @@ const GroupchatCard = (props) => {
             <small className="text-muted">Uploaded on {date} </small>
           </Card.Text>
         </Card.Body>
-        <Card.Footer
-          className="d-flex align-items-center justify-content-between"
-          style={{ backgroundColor: "white" }}
-        >
+        <Card.Footer className="d-flex align-items-center justify-content-between">
           <Button
             onClick={handleReportShow}
             className={`${classes.report} btn-sm `}
@@ -51,9 +48,7 @@ const GroupchatCard = (props) => {
             }}
           >
             <img src={copySvg} alt="copy" width="32" height="32" />
-            <p className="mb-0 " style={{ fontSize: "0.75rem" }}>
-              Copy
-            </p>
+            <p className={`mb-0 ${classes.copy}`}>Copy</p>
           </div>
         </Card.Footer>
       </Card>
