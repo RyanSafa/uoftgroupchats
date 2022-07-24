@@ -3,6 +3,7 @@ import classes from "./GroupchatCard.module.css";
 import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 import ReportModal from "./ReportModal";
+import copySvg from "../svgs/copy.svg";
 
 const GroupchatCard = (props) => {
   const [showReportModal, setShowReportModal] = useState(false);
@@ -22,7 +23,7 @@ const GroupchatCard = (props) => {
     <>
       <Card className={`h-100 ${classes.square}`}>
         <Card.Header className="text-left text-primary-black fw-bold">
-          {type}
+          <div>{type}</div>
         </Card.Header>
         <Card.Body>
           <Card.Text className={classes.link}>
@@ -32,13 +33,28 @@ const GroupchatCard = (props) => {
             <small className="text-muted">Uploaded on {date} </small>
           </Card.Text>
         </Card.Body>
-        <Card.Footer className="" style={{ backgroundColor: "white" }}>
+        <Card.Footer
+          className="d-flex align-items-center justify-content-between"
+          style={{ backgroundColor: "white" }}
+        >
           <Button
             onClick={handleReportShow}
             className={`${classes.report} btn-sm `}
           >
             Report
           </Button>
+          <div
+            className="d-flex align-items-center"
+            onClick={() => navigator.clipboard.writeText(link)}
+            style={{
+              cursor: "pointer",
+            }}
+          >
+            <img src={copySvg} alt="copy" width="32" height="32" />
+            <p className="mb-0 " style={{ fontSize: "0.75rem" }}>
+              Copy
+            </p>
+          </div>
         </Card.Footer>
       </Card>
       <ReportModal

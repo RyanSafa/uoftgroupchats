@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import GroupchatCard from "../components/GroupchatCard";
+import Alert from "react-bootstrap/Alert";
 import "../styles/courseDetail.css";
 const CourseDetail = (props) => {
   const params = useParams();
@@ -27,31 +28,50 @@ const CourseDetail = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isGroupchatLoading, setIsGroupchatLoading] = useState(false);
   const [httpError, setHttpError] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const [alert, setAlert] = useState({
+    showAlert: false,
+    isError: false,
+    msg: "",
+  });
+  const [validated, setValidated] = useState(false);
 
+  const handleAlert = (showAlert, isError, msg) => {
+    console.log(isError, msg);
+    setAlert({ showAlert, isError, msg });
+  };
   const reloadGroupchats = (lec, id) => {
-    setIsGroupchatLoading(true);
-    const fetchGroupchats = async () => {
-      const response = await fetch(`/api/groupchats/${id}/${lec}`);
-      const data = await response.json();
-      if (response.ok) {
-        setGroupchats(data);
-        setIsGroupchatLoading(false);
-      } else {
-        throw new Error(data.message, { cause: data.status });
-      }
-    };
-    if (id)
-      fetchGroupchats().catch((error) => {
-        setIsGroupchatLoading(false);
-        setHttpError({ message: error.message, status: error.cause });
-      });
+    if (lec === selectedLecture) {
+      setIsGroupchatLoading(true);
+      const fetchGroupchats = async () => {
+        const response = await fetch(`/api/groupchats/${id}/${lec}`);
+        const data = await response.json();
+        if (response.ok) {
+          setGroupchats(data);
+          setIsGroupchatLoading(false);
+        } else {
+          throw new Error(data.message, { cause: data.status });
+        }
+      };
+      if (id)
+        fetchGroupchats().catch((error) => {
+          setIsGroupchatLoading(false);
+          setHttpError({ message: error.message, status: error.cause });
+        });
+    } else {
+      setSelectedLecture(lec);
+    }
   };
   const handleGroupChatShow = () => {
     setShowGroupChatModal(true);
   };
-  const handleGroupChatClose = () => setShowGroupChatModal(false);
+  const handleGroupChatClose = () => {
+    setShowGroupChatModal(false);
+    setValidated(false);
+  };
+
+  const handleValidation = () => {
+    setValidated(true);
+  };
   useEffect(() => {
     const fetchCourse = async () => {
       const response = await fetch(`/api/courses/${code}`);
@@ -90,13 +110,13 @@ const CourseDetail = (props) => {
         setHttpError({ message: error.message, status: error.cause });
       });
   }, [id, selectedLecture]);
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading</div>;
+  // }
 
-  if (isGroupchatLoading) {
-    return <div>Loading Groupchats</div>;
-  }
+  // if (isGroupchatLoading) {
+  //   return <div>Loading Groupchats</div>;
+  // }
   if (httpError) {
     return (
       <div>
@@ -140,7 +160,7 @@ const CourseDetail = (props) => {
                 onSelect={(eKey) => setSelectedLecture(eKey)}
                 title={selectedLecture}
                 id="input-group-dropdown-1"
-                className="custom-squared-button"
+                className=""
               >
                 {course?.lectures?.map((lecture) => {
                   return (
@@ -159,6 +179,45 @@ const CourseDetail = (props) => {
         </Row>
       </Container>
       <Container className="mb-4">
+        {alert.showAlert && (
+          <Alert
+            onClose={() =>
+              setAlert({ showAlert: false, isError: false, msg: "" })
+            }
+            variant={`${alert.isError ? "secondary-red" : "WhatsApp"}`}
+            className="d-flex align-items-center"
+            dismissible
+            role="alert"
+          >
+            {alert.isError && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-exclamation-octagon  flex-shrink-0 me-2"
+                viewBox="0 0 16 16"
+              >
+                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+              </svg>
+            )}
+            {!alert.isError && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="currentColor"
+                class="bi bi-check2-all flex-shrink-0 me-2"
+                viewBox="0 0 16 16"
+              >
+                <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z" />
+                <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z" />
+              </svg>
+            )}
+            <div>{alert.msg}</div>
+          </Alert>
+        )}
         <Row
           className={`${
             groupchats.length > 0
@@ -191,9 +250,10 @@ const CourseDetail = (props) => {
         lectures={lectures}
         selectedLecture={selectedLecture}
         reloadGroupchats={reloadGroupchats}
-        setShowAlert={setShowAlert}
-        setShowError={setShowError}
         courseId={id}
+        handleValidation={handleValidation}
+        validated={validated}
+        handleAlert={handleAlert}
       ></NewChatModal>
     </>
   );

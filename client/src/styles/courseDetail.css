@@ -19,7 +19,9 @@
   background-color: white;
   border-radius: 0;
 }
-
+.alert {
+  border-radius: 0 !important;
+}
 .dropdown-item:hover {
   color: #1e2125;
   background-color: hsl(193, 100%, 35%, 0.2);
