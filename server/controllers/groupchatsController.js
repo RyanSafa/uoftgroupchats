@@ -1,5 +1,5 @@
 const { Groupchat } = require("../models");
-
+const { Sequelize } = require("sequelize");
 const createGroupchat = async (req, res, next) => {
   try {
     const { type, link, lecture, courseId } = req.body;
@@ -12,8 +12,11 @@ const createGroupchat = async (req, res, next) => {
     });
     return res.send(groupchat);
   } catch (error) {
+    console.log(error);
     if (error instanceof Sequelize.ForeignKeyConstraintError) {
-      next({ stats: 400, message: "Invalid courseId" });
+      next({ status: 400, message: "Invalid courseId" });
+    } else if (error instanceof Sequelize.UniqueConstraintError) {
+      next({ status: 400, message: "Link must be unique" });
     } else {
       next({ status: 500, message: "" });
     }
@@ -33,7 +36,7 @@ const getGroupchats = async (req, res, next) => {
     return res.send(groupchats);
   } catch (error) {
     if (error instanceof Sequelize.ForeignKeyConstraintError) {
-      next({ stats: 400, message: "Invalid courseId" });
+      next({ status: 400, message: "Invalid courseId" });
     } else {
       next({ status: 500, message: "" });
     }

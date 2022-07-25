@@ -21,6 +21,7 @@ module.exports = {
       link: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       lecture: {
         type: Sequelize.STRING,
