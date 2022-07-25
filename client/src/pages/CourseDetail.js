@@ -1,6 +1,6 @@
 import NewChatModal from "../components/NewChatModal";
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -8,9 +8,11 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import GroupchatCard from "../components/GroupchatCard";
+import GroupchatCard from "../components/GroupChatCard";
 import Alert from "react-bootstrap/Alert";
+import DelayedLoading from "../components/DelayedLoading";
 import "../styles/courseDetail.css";
+
 const CourseDetail = (props) => {
   const params = useParams();
   const { code } = params;
@@ -22,11 +24,13 @@ const CourseDetail = (props) => {
     title: "",
     updatedAt: "",
   });
+  const [isCourseLoading, setIsCourseLoading] = useState(true);
+
   const [selectedLecture, setSelectedLecture] = useState("Unspecified Lecture");
   const [groupchats, setGroupchats] = useState([]);
-  const [showGroupChatModal, setShowGroupChatModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [isGroupchatLoading, setIsGroupchatLoading] = useState(false);
+  const [showGroupChatModal, setShowGroupChatModal] = useState(false);
+
   const [httpError, setHttpError] = useState(null);
   const [alert, setAlert] = useState({
     showAlert: false,
@@ -86,7 +90,7 @@ const CourseDetail = (props) => {
       const response = await fetch(`/api/courses/${code}`);
       const data = await response.json();
       if (response.ok) {
-        setIsLoading(false);
+        setIsCourseLoading(false);
         setCourse(data);
       } else {
         throw new Error(data.message, { cause: data.status });
@@ -94,7 +98,7 @@ const CourseDetail = (props) => {
     };
 
     fetchCourse().catch((error) => {
-      setIsLoading(false);
+      setIsCourseLoading(false);
       setHttpError({ message: error.message, status: error.cause });
     });
   }, [code]);
@@ -119,13 +123,7 @@ const CourseDetail = (props) => {
         setHttpError({ message: error.message, status: error.cause });
       });
   }, [id, selectedLecture]);
-  // if (isLoading) {
-  //   return <div>Loading</div>;
-  // }
 
-  // if (isGroupchatLoading) {
-  //   return <div>Loading Groupchats</div>;
-  // }
   if (httpError) {
     return (
       <div>
@@ -136,57 +134,66 @@ const CourseDetail = (props) => {
   }
   return (
     <>
-      <div
-        className="jumbotron jumbotron-fluid"
-        style={{ backgroundColor: "#002a5c" }}
-      >
-        <Container>
-          <Row className="justify-content-between">
-            <Col md={10} className="text-white py-2 my-auto course-title">
-              <div className="">
-                <h1 className="font-weight-bold ">{course.code}</h1>
-                <h3>{course.title}</h3>
-              </div>
-            </Col>
-            <Col
-              md={2}
-              className=" my-md-auto text-center lower-button-padding "
-            >
-              <Button onClick={handleGroupChatShow} className="add-groupchat">
-                Add a Group Chat
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-      <Container>
-        <Row className="justify-content-center">
-          <Col xs="auto" className="my-3 text-center">
-            <InputGroup>
-              <InputGroup.Text>Lecture Session</InputGroup.Text>
-              <DropdownButton
-                variant="outline-primary-blue"
-                onSelect={(eKey) => setSelectedLecture(eKey)}
-                title={selectedLecture}
-                id="input-group-dropdown-1"
-                className=""
-              >
-                {course?.lectures?.map((lecture) => {
-                  return (
-                    <Dropdown.Item
-                      id={lecture}
-                      key={lecture}
-                      eventKey={lecture}
-                    >
-                      {lecture}
-                    </Dropdown.Item>
-                  );
-                })}
-              </DropdownButton>
-            </InputGroup>
-          </Col>
-        </Row>
-      </Container>
+      {isCourseLoading && <DelayedLoading title="Course" time={750} />}
+      {!isCourseLoading && (
+        <>
+          <div
+            className="jumbotron jumbotron-fluid"
+            style={{ backgroundColor: "#002a5c" }}
+          >
+            <Container>
+              <Row className="justify-content-between">
+                <Col md={10} className="text-white py-2 my-auto course-title">
+                  <div className="">
+                    <h1 className="font-weight-bold ">{course.code}</h1>
+                    <h3>{course.title}</h3>
+                  </div>
+                </Col>
+                <Col
+                  md={2}
+                  className=" my-md-auto text-center lower-button-padding "
+                >
+                  <Button
+                    onClick={handleGroupChatShow}
+                    className="add-groupchat"
+                  >
+                    Add a Group Chat
+                  </Button>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+          <Container>
+            <Row className="justify-content-center">
+              <Col xs="auto" className="my-3 text-center">
+                <InputGroup>
+                  <InputGroup.Text>Lecture Session</InputGroup.Text>
+                  <DropdownButton
+                    variant="outline-primary-blue"
+                    onSelect={(eKey) => setSelectedLecture(eKey)}
+                    title={selectedLecture}
+                    id="input-group-dropdown-1"
+                    className=""
+                  >
+                    {course?.lectures?.map((lecture) => {
+                      return (
+                        <Dropdown.Item
+                          id={lecture}
+                          key={lecture}
+                          eventKey={lecture}
+                        >
+                          {lecture}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </DropdownButton>
+                </InputGroup>
+              </Col>
+            </Row>
+          </Container>
+        </>
+      )}
+
       <Container className="mb-4">
         {alert.showAlert && (
           <Alert
@@ -273,8 +280,12 @@ const CourseDetail = (props) => {
               : ""
           }`}
         >
+          {!isCourseLoading && isGroupchatLoading && (
+            <DelayedLoading title="Group Chats" time={750} />
+          )}
           {groupchats?.length > 0 &&
             !isGroupchatLoading &&
+            !isCourseLoading &&
             groupchats?.map((gc) => {
               return (
                 <Col className="" key={gc.id}>
@@ -286,7 +297,7 @@ const CourseDetail = (props) => {
               );
             })}
 
-          {groupchats?.length === 0 && !isGroupchatLoading && (
+          {groupchats?.length === 0 && !isGroupchatLoading && !isCourseLoading && (
             <Col className="text-center">
               <h2 className="no-course-found">
                 No Group Chats Found. Please Add one if you can!

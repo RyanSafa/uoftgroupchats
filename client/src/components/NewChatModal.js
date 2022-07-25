@@ -2,10 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
-import { useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
-import _default from "react-bootstrap/Modal";
+import { useRef } from "react";
 
 const NewChatModal = (props) => {
   const types = [

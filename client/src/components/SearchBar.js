@@ -61,7 +61,7 @@ const SearchBar = () => {
         {courses.length === 0 && debouncedSearch.length > 1 && (
           <ListGroup>
             <ListGroup.Item key="-1">
-              <span className="fw-bold">No such course found.</span>
+              <span className="fw-bold">No Course Found</span>
             </ListGroup.Item>
           </ListGroup>
         )}

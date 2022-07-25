@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import ChatLink from "./ChatLink";
 import Form from "react-bootstrap/Form";
 
 const ReportModal = (props) => {
