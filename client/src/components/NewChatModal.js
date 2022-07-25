@@ -40,20 +40,25 @@ const NewChatModal = (props) => {
         lecture: lecRef.current.value,
         courseId,
       };
-      const response = await fetch("/api/groupchats/", {
-        method: "POST",
-        body: JSON.stringify(request_obj),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      if (response.ok) {
-        handleAlert(true, false, "Sucess!");
-        handleNewFormClose();
-        reloadGroupchats(lecRef.current.value, courseId);
-      } else {
-        handleAlert(true, true, data.message || "Error");
+      try {
+        const response = await fetch("/api/groupchats/", {
+          method: "POST",
+          body: JSON.stringify(request_obj),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        if (response.ok) {
+          handleAlert(true, false, "Sucess!");
+          handleNewFormClose();
+          reloadGroupchats(lecRef.current.value, courseId);
+        } else {
+          handleAlert(true, true, data.message || "Error");
+          handleNewFormClose();
+        }
+      } catch (error) {
+        handleAlert(true, true, "Uknown Error");
         handleNewFormClose();
       }
     } else {

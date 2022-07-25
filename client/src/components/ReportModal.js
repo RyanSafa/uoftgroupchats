@@ -23,20 +23,25 @@ const ReportModal = (props) => {
       reason: inputReason.current.value,
       groupchatId: groupChat.id,
     };
-    const response = await fetch("/api/reports", {
-      method: "POST",
-      body: JSON.stringify(request),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = response.json();
-    if (response.ok) {
+    try {
+      const response = await fetch("/api/reports", {
+        method: "POST",
+        body: JSON.stringify(request),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = response.json();
+      if (response.ok) {
+        handleReportAlert(true, false, "Report Sent!");
+        handleReportFormClose();
+      } else {
+        handleReportAlert(true, true, data.message || "Error");
+        handleReportFormClose();
+      }
+    } catch (error) {
+      handleReportAlert(true, true, "Uknown Error");
       handleReportFormClose();
-      console.log("hello");
-      handleReportAlert(true, false, "Report Sent!");
-    } else {
-      handleReportAlert(true, true, data.message || "Error");
     }
   };
 

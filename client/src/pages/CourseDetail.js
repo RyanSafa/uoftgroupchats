@@ -125,11 +125,16 @@ const CourseDetail = (props) => {
   }, [id, selectedLecture]);
 
   if (httpError) {
+    console.log(httpError);
     return (
-      <div>
-        <p>Oops! {httpError.status} Error</p>
-        <p>{httpError.message}</p>
-      </div>
+      <Container fluid>
+        <Row className="my-5" style={{ backgroundColor: "#002a5c" }}>
+          <Col className="text-white text-center py-5">
+            <h1>Oops! {httpError.status} </h1>
+            <h2>{httpError.message}</h2>
+          </Col>
+        </Row>
+      </Container>
     );
   }
   return (
