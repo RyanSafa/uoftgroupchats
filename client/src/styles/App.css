@@ -8,3 +8,6 @@
 .modal-content {
   border-radius: 0 !important;
 }
+.btn-sm {
+  font-size: 0.75rem !important;
+}

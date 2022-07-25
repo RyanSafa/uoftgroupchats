@@ -51,7 +51,7 @@ const GroupchatCard = (props) => {
               cursor: "pointer",
             }}
           >
-            <img src={copySvg} alt="copy" width="32" height="32" />
+            <img src={copySvg} alt="copy" width="22" height="22" />
             <p className={`mb-0 ${classes.copy}`}>Copy</p>
           </div>
         </Card.Footer>
