@@ -8,6 +8,7 @@ import copySvg from "../svgs/copy.svg";
 const GroupchatCard = (props) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const { type, link, createdAt } = props.groupchat;
+  const { handleReportAlert } = props;
   const date = new Date(createdAt)
     .toDateString()
     .split(" ")
@@ -33,7 +34,10 @@ const GroupchatCard = (props) => {
             <small className="text-muted">Uploaded on {date} </small>
           </Card.Text>
         </Card.Body>
-        <Card.Footer className="d-flex align-items-center justify-content-between">
+        <Card.Footer
+          style={{ backgroundColor: "white" }}
+          className="d-flex align-items-center justify-content-between"
+        >
           <Button
             onClick={handleReportShow}
             className={`${classes.report} btn-sm `}
@@ -55,7 +59,8 @@ const GroupchatCard = (props) => {
       <ReportModal
         handleReportFormClose={handleReportClose}
         showReportForm={showReportModal}
-        gc={props.groupchat}
+        groupChat={props.groupchat}
+        handleReportAlert={handleReportAlert}
       ></ReportModal>
     </>
   );

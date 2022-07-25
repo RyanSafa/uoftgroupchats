@@ -5,7 +5,12 @@ import ChatLink from "./ChatLink";
 import Form from "react-bootstrap/Form";
 
 const ReportModal = (props) => {
-  const { handleReportFormClose, showReportForm, gc } = props;
+  const {
+    handleReportFormClose,
+    showReportForm,
+    groupChat,
+    handleReportAlert,
+  } = props;
   const inputReason = useRef();
   const form_options = [
     "Dead or expired link.",
@@ -15,58 +20,60 @@ const ReportModal = (props) => {
 
   const reportHandler = async (event) => {
     event.preventDefault();
-    const request_obj = {
+    const request = {
       reason: inputReason.current.value,
-      groupchatId: gc.id,
+      groupchatId: groupChat.id,
     };
     const response = await fetch("/api/reports", {
       method: "POST",
-      body: JSON.stringify(request_obj),
+      body: JSON.stringify(request),
       headers: {
         "Content-Type": "application/json",
       },
     });
+    const data = response.json();
     if (response.ok) {
       handleReportFormClose();
-      props.setShowReported(true);
+      console.log("hello");
+      handleReportAlert(true, false, "Report Sent!");
     } else {
-      handleReportFormClose();
-      props.setShowReportedError(true);
+      handleReportAlert(true, true, data.message || "Error");
     }
   };
 
   return (
     <Modal show={showReportForm} onHide={handleReportFormClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Report this groupchat?</Modal.Title>
+        <Modal.Title>Report this Group Chat?</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ChatLink
-          key={gc.id}
-          link={gc.link}
-          type={gc.type}
-          updatedAt={gc.updatedAt}
-          id={gc.id}
-          inSections={false}
-        ></ChatLink>
-
         <Form onSubmit={reportHandler}>
-          <Form.Group className="my-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>
-              Why would you like to report this groupchat?
+              Why would you like to report this group chat?
             </Form.Label>
             <Form.Select ref={inputReason}>{form_options}</Form.Select>
           </Form.Group>
-          <Button
-            variant="secondary-red"
-            onClick={handleReportFormClose}
-            className="mb-4 mx-1"
-          >
-            Close
-          </Button>
-          <Button variant="primary-blue" type="Submit" className="mb-4 mx-1">
-            Report
-          </Button>
+          <Modal.Footer>
+            <Button
+              variant="outline-primary-blue"
+              type="Submit"
+              style={{
+                borderRadius: "0",
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              variant="outline-secondary-red"
+              onClick={handleReportFormClose}
+              style={{
+                borderRadius: "0",
+              }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
         </Form>
       </Modal.Body>
     </Modal>

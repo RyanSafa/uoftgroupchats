@@ -6,10 +6,10 @@ import SearchBar from "./SearchBar";
 const MainPage = () => {
   return (
     <>
-      <Container className="my-5 px-4">
+      <Container className="my-5 ">
         <div className={"d-flex justify-content-center"}>
           <div style={{ minWidth: 0 }}>
-            <h1 className="title gradient-text" style={{ fontSize: "3.5rem" }}>
+            <h1 className="title gradient-text" style={{ fontSize: "3rem" }}>
               Welcome to UofT GroupChats
             </h1>
             <h3 className={"mt-4"} style={{ fontSize: "1.5rem" }}>
@@ -18,10 +18,12 @@ const MainPage = () => {
             </h3>
             <SearchBar />
           </div>
-          <div className={"d-flex align-self-start flex-column"}>
+          <div
+            className={"d-flex align-self-start flex-column d-none d-lg-block"}
+          >
             <Image
               fluid
-              className={"w-100  flex-grow-1 px-5 d-none d-lg-block"}
+              className={"w-100  flex-grow-1 px-5 "}
               src={chattingSVg}
             />
             <p className={"text-center subtext mt-1 d-none d-lg-block"}>

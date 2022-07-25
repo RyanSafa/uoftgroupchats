@@ -35,8 +35,8 @@ const NewChatModal = (props) => {
     return link !== "";
   };
   const addChatHandler = async (event) => {
+    event.preventDefault();
     if (validateForm(urlRef.current.value)) {
-      event.preventDefault();
       const request_obj = {
         type: typeRef.current.value,
         link: urlRef.current.value,
@@ -56,13 +56,11 @@ const NewChatModal = (props) => {
         handleNewFormClose();
         reloadGroupchats(lecRef.current.value, courseId);
       } else {
-        console.log(data);
-        handleAlert(true, true, data.message);
+        handleAlert(true, true, data.message || "Error");
         handleNewFormClose();
       }
     } else {
       handleValidation();
-      event.preventDefault();
       event.stopPropagation();
     }
   };
@@ -122,7 +120,7 @@ const NewChatModal = (props) => {
                   borderRadius: "0",
                 }}
               >
-                Save Changes
+                Create
               </Button>
               <Button
                 variant="outline-secondary-red"

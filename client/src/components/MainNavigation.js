@@ -3,32 +3,18 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import chat_icon from "../svgs/chat_box.svg";
 import "../styles/MainNavigation.css";
-import { useLocation } from "react-router-dom";
 const MainNavigation = () => {
-  const { pathname } = useLocation();
-  const isHomePage = pathname === "/";
   return (
     <>
-      <Navbar
-        bg={!isHomePage ? "white" : "secondary-blue"}
-        variant="dark"
-        expand="lg"
-        sticky="top"
-      >
+      <Navbar bg="white" variant="dark" expand="lg" sticky="top">
         <Container className="justify-content-space-between ">
-          <Navbar.Brand
-            href="/"
-            className={"fw-bold " + (!isHomePage ? "text-black" : "")}
-          >
+          <Navbar.Brand href="/" className="fw-bold text-primary-blue">
             UofT GroupChats
             <img
               src={chat_icon}
               width="30"
               height="30"
-              className={
-                "d-inline-block align-top mx-2 " +
-                (!isHomePage ? "filter-blue" : "filter-white")
-              }
+              className="d-inline-block align-top mx-2 filter-blue"
               alt="Chat icon"
             />
           </Navbar.Brand>
@@ -37,7 +23,7 @@ const MainNavigation = () => {
               href="https://github.com/RyanSafa/uoftgroupchats"
               target="_blank"
             >
-              <div className={!isHomePage ? "text-black" : ""}>GitHub</div>
+              <div className="text-black fw-bold">GitHub</div>
             </Nav.Link>
           </Nav>
         </Container>
