@@ -40,7 +40,6 @@ const CourseDetail = (props) => {
   const [validated, setValidated] = useState(false);
 
   const handleAlert = (showAlert, isError, msg) => {
-    console.log(isError, msg);
     setAlert({ showAlert, isError, msg });
   };
   const [reportAlert, setReportAlert] = useState({
@@ -125,7 +124,6 @@ const CourseDetail = (props) => {
   }, [id, selectedLecture]);
 
   if (httpError) {
-    console.log(httpError);
     return (
       <Container fluid>
         <Row className="my-5" style={{ backgroundColor: "#002a5c" }}>
