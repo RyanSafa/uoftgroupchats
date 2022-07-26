@@ -58,7 +58,7 @@ const SearchBar = () => {
             })}
           </ListGroup>
         )}
-        {courses.length === 0 && debouncedSearch.length > 1 && (
+        {courses.length === 0 && !isLoading && debouncedSearch.length > 1 && (
           <ListGroup>
             <ListGroup.Item key="-1">
               <span className="fw-bold">No Course Found</span>

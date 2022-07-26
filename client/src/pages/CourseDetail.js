@@ -137,7 +137,15 @@ const CourseDetail = (props) => {
   }
   return (
     <>
-      {isCourseLoading && <DelayedLoading title="Course" time={750} />}
+      {isCourseLoading && (
+        <Container>
+          <Row>
+            <Col>
+              <DelayedLoading title="Course" time={750} />
+            </Col>
+          </Row>
+        </Container>
+      )}
       {!isCourseLoading && (
         <>
           <div

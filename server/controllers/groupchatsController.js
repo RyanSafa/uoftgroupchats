@@ -35,7 +35,6 @@ const getGroupchats = async (req, res, next) => {
   try {
     const groupchats = await Groupchat.findAll(query);
     const groupchatsWithNoReports = groupchats.filter((gc) => {
-      console.log(gc.dataValues.Reports.length);
       if (gc.dataValues.Reports.length === 0) {
         return gc;
       }
