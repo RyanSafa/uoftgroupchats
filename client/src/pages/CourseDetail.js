@@ -8,7 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import GroupchatCard from "../components/GroupChatCard";
+import GroupchatCard from "../components/GroupchatCard";
 import Alert from "react-bootstrap/Alert";
 import DelayedLoading from "../components/DelayedLoading";
 import "../styles/courseDetail.css";
@@ -91,7 +91,7 @@ const CourseDetail = (props) => {
       if (response.ok) {
         setIsCourseLoading(false);
         setCourse(data);
-        setSelectedLecture(data.lectures[0])
+        setSelectedLecture(data.lectures[0]);
       } else {
         throw new Error(data.message, { cause: data.status });
       }
@@ -286,10 +286,11 @@ const CourseDetail = (props) => {
           </Alert>
         )}
         <Row
-          className={`${groupchats.length > 0
-            ? "row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4"
-            : ""
-            }`}
+          className={`${
+            groupchats.length > 0
+              ? "row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4"
+              : ""
+          }`}
         >
           {!isCourseLoading && isGroupchatLoading && (
             <DelayedLoading title="Group Chats" time={750} />
