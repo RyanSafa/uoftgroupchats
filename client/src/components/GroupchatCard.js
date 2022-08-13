@@ -4,11 +4,11 @@ import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 import ReportModal from "./ReportModal";
 import copySvg from "../svgs/copy.svg";
-import whatsappLogo from "../logos/WhatsApp_logo.webp";
-import discordLogo from "../logos/discord-logo.png"
-import messengerLogo from "../logos/messenger_logo.png"
-import telegramLogo from '../logos/telegram_logo.webp'
-import slackLogo from '../logos/Slack_logo.png'
+import whatsappLogo from "../logos/WhatsApp_logo.png";
+import discordLogo from "../logos/Discord-Logo-Black.png"
+import messengerLogo from "../logos/M_logo_Black.png"
+import telegramLogo from '../logos/telegram_logo.png'
+import slackLogo from '../logos/slackblacklogo.png'
 
 const GroupchatCard = (props) => {
   const logos = {
@@ -37,13 +37,13 @@ const GroupchatCard = (props) => {
     <>
       <Card className={`h-100 ${classes.square}`}>
         <Card.Header className="text-left text-primary-black fw-bold">
-          {type}   <img
+          <img
             alt=""
             src={logos[type]}
             width="20"
             height="20"
             className="d-inline-block align-top"
-          />
+          />   {type}
         </Card.Header>
         <Card.Body className="d-flex flex-column justify-content-between">
           <Card.Text className={classes.link}>
