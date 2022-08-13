@@ -2,21 +2,36 @@ import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import chattingSVg from "../svgs/phone.svg";
 import SearchBar from "./SearchBar";
+import { useState, useEffect } from "react";
 
 const MainPage = () => {
+  const [isPhone, setPhone] = useState(window.innerWidth < 768);
+
+  const updateMedia = () => {
+    setPhone(window.innerWidth < 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
+
+  const instructions_class = isPhone ? "" : "mt-4"
+  const instructions_fontsize = isPhone ? "1rem" : "1.5rem"
+
   return (
     <>
-      <Container className="my-5 ">
+      <Container className={!isPhone ? "my-5" : "my-3"}>
         <div className={"d-flex justify-content-center"}>
           <div style={{ minWidth: 0 }}>
-            <h1 className="title gradient-text" style={{ fontSize: "3rem" }}>
+            {!isPhone && <h1 className="title gradient-text" style={{ fontSize: "3rem" }}>
               Welcome to UofT GroupChats
-            </h1>
-            <h3 className={"mt-4"} style={{ fontSize: "1.5rem" }}>
+            </h1>}
+            <h3 className={instructions_class} style={{ fontSize: instructions_fontsize }}>
               Find &amp; Upload Group Chats for Courses at the UofT St.George
               Campus
             </h3>
-            <SearchBar />
+            <SearchBar isPhone={isPhone} />
           </div>
           <div
             className={"d-flex align-self-start flex-column d-none d-lg-block"}
