@@ -31,7 +31,7 @@ const SearchBar = (props) => {
   }, [debouncedSearch]);
 
   return (
-    <Form className={!props.isPhone ? "pt-4" : "pt-1"}>
+    <Form className={!props.isPhone ? "pt-4" : "pt-1"} onSubmit={(event) => { event.preventDefault() }}>
       <Form.Group controlId="searchInput">
         <Form.Label className={"mt-1 p-0"}>
           {!props.isPhone && <h5 className={"my-0 p-0"}>Search for a Course</h5>}
