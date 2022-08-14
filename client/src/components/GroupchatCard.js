@@ -81,7 +81,7 @@ const GroupchatCard = (props) => {
           </Button>
           {!copied && !copyFailed && <div
             className="d-flex align-items-center"
-            onClick={copyLink}
+            onClick={() => { copyLink(link) }}
             style={{
               cursor: "pointer",
             }}
