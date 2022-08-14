@@ -16,7 +16,6 @@ const DelayedListGroup = (props) => {
   return (
     showLoading && (
       <ListGroup.Item key="-1">
-        {" "}
         <span className="fw-bold">{`Loading ${title}...`}</span>
       </ListGroup.Item>
     )
