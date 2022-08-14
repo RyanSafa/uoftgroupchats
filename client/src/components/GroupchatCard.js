@@ -20,19 +20,18 @@ const GroupchatCard = (props) => {
     "Facebook Messenger": messengerLogo,
   };
 
-  const [copied, setCopied] = useState(false)
-  const [copyFailed, setCopyFailed] = useState(false)
+  const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
 
   const copyLink = (link) => {
     try {
-      navigator.clipboard.writeText(link)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1000)
+      navigator.clipboard.writeText(link);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (e) {
+      setCopyFailed(true);
     }
-    catch (e) {
-      setCopyFailed(true)
-    }
-  }
+  };
 
   const [showReportModal, setShowReportModal] = useState(false);
   const { type, link, createdAt } = props.groupchat;
@@ -79,23 +78,33 @@ const GroupchatCard = (props) => {
           >
             Report
           </Button>
-          {!copied && !copyFailed && <div
-            className="d-flex align-items-center"
-            onClick={() => { copyLink(link) }}
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            <img src={copySvg} alt="copy" width="22" height="22" />
-            <p className={`mb-0 ${classes.copy}`}>Copy</p>
-          </div>}
-          {copied && !copyFailed && <div
-            className="d-flex align-items-center"
-          >
-            <img src={copiedSvg} alt="copied" width="22" height="22" />
-            <p className='mb-0' style={{ fontSize: "0.75rem" }}>Copied!</p>
-          </div>}
-          {copyFailed && <p className='mb-0' style={{ fontSize: "0.75rem" }}>Browser not supported :( </p>}
+          {!copied && !copyFailed && (
+            <div
+              className="d-flex align-items-center"
+              onClick={() => {
+                copyLink(link);
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+            >
+              <img src={copySvg} alt="copy" width="22" height="22" />
+              <p className={`mb-0 ${classes.copy}`}>Copy</p>
+            </div>
+          )}
+          {copied && !copyFailed && (
+            <div className="d-flex align-items-center">
+              <img src={copiedSvg} alt="copied" width="22" height="22" />
+              <p className="mb-0" style={{ fontSize: "0.75rem" }}>
+                Copied!
+              </p>
+            </div>
+          )}
+          {copyFailed && (
+            <p className="mb-0" style={{ fontSize: "0.75rem" }}>
+              Browser not supported :({" "}
+            </p>
+          )}
           {/* <Button
             onClick={() => navigator.clipboard.writeText(link)}
             className="d-flex align-items-center"
