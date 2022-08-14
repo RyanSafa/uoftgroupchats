@@ -2,6 +2,7 @@ import useDebounce from "../hooks/useDebounce";
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
+import LoadingSpinner from './LoadingSpinner'
 
 const SearchBar = (props) => {
   const [search, setSearch] = useState("");
@@ -76,6 +77,7 @@ const SearchBar = (props) => {
             </ListGroup.Item>
           </ListGroup>
         )}
+        {isLoading && <LoadingSpinner></LoadingSpinner>}
       </Form.Group>
     </Form>
   );
