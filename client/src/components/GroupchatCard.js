@@ -3,7 +3,8 @@ import classes from "./GroupchatCard.module.css";
 import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 import ReportModal from "./ReportModal";
-import copySvg from "../svgs/copy.svg";
+import copySvg from "../svgs/clipboard2.svg";
+import copiedSvg from "../svgs/clipboard2-check-fill.svg";
 import whatsappLogo from "../logos/WhatsApp_logo.png";
 import discordLogo from "../logos/Discord-Logo-Black.png";
 import messengerLogo from "../logos/M_logo_Black.png";
@@ -18,6 +19,20 @@ const GroupchatCard = (props) => {
     Slack: slackLogo,
     "Facebook Messenger": messengerLogo,
   };
+
+  const [copied, setCopied] = useState(false)
+  const [copyFailed, setCopyFailed] = useState(false)
+
+  const copyLink = (link) => {
+    try {
+      navigator.clipboard.writeText(link)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1000)
+    }
+    catch (e) {
+      setCopyFailed(true)
+    }
+  }
 
   const [showReportModal, setShowReportModal] = useState(false);
   const { type, link, createdAt } = props.groupchat;
@@ -64,16 +79,29 @@ const GroupchatCard = (props) => {
           >
             Report
           </Button>
-          <div
+          {!copied && !copyFailed && <div
             className="d-flex align-items-center"
-            onClick={() => navigator.clipboard.writeText(link)}
+            onClick={copyLink}
             style={{
               cursor: "pointer",
             }}
           >
             <img src={copySvg} alt="copy" width="22" height="22" />
             <p className={`mb-0 ${classes.copy}`}>Copy</p>
-          </div>
+          </div>}
+          {copied && !copyFailed && <div
+            className="d-flex align-items-center"
+          >
+            <img src={copiedSvg} alt="copied" width="22" height="22" />
+            <p className='mb-0' style={{ fontSize: "0.75rem" }}>Copied!</p>
+          </div>}
+          {copyFailed && <p className='mb-0' style={{ fontSize: "0.75rem" }}>Browser not supported :( </p>}
+          {/* <Button
+            onClick={() => navigator.clipboard.writeText(link)}
+            className="d-flex align-items-center"
+          > <img src={copySvg} alt="copy" width="22" height="22" />
+            Copy
+          </Button> */}
         </Card.Footer>
       </Card>
       <ReportModal
