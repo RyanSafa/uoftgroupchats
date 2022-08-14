@@ -13,7 +13,7 @@ import Alert from "react-bootstrap/Alert";
 import DelayedLoading from "../components/DelayedLoading";
 import "../styles/courseDetail.css";
 
-const CourseDetail = (props) => {
+const CourseDetail = () => {
   const params = useParams();
   const { code } = params;
   const [course, setCourse] = useState({
@@ -25,7 +25,6 @@ const CourseDetail = (props) => {
     updatedAt: "",
   });
   const [isCourseLoading, setIsCourseLoading] = useState(true);
-
   const [selectedLecture, setSelectedLecture] = useState("Unspecified Lecture");
   const [groupchats, setGroupchats] = useState([]);
   const [isGroupchatLoading, setIsGroupchatLoading] = useState(false);
@@ -51,6 +50,7 @@ const CourseDetail = (props) => {
   const handleReportAlert = (showAlert, isError, msg) => {
     setAlert({ showAlert, isError, msg });
   };
+
   const reloadGroupchats = (lec, id) => {
     if (lec === selectedLecture) {
       setIsGroupchatLoading(true);

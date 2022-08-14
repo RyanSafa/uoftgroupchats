@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="custom-shape-divider-bottom-1657903693 d-none d-md-block">
+    <div className="custom-shape-divider-bottom-1657903693">
       <svg
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"

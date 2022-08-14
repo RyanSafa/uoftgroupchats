@@ -7,7 +7,6 @@ const SearchBar = (props) => {
   const [search, setSearch] = useState("");
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
   const debouncedSearch = useDebounce(search, 500);
 
   // fetch courses
