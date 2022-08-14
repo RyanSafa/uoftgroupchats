@@ -27,9 +27,7 @@ const SearchBar = (props) => {
   const [search, setSearch] = useState("");
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  console.log("isLoading", isLoading);
   const [debouncedSearch, searchDone] = useDebounce(search, 500);
-  console.log("searchDone", searchDone);
   // fetch courses
   useEffect(() => {
     const fetchData = async () => {
