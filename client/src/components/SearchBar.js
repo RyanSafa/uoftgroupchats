@@ -2,14 +2,34 @@ import useDebounce from "../hooks/useDebounce";
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-import LoadingSpinner from './LoadingSpinner'
+
+const DelayedListGroup = (props) => {
+  const { title, time } = props;
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowLoading(true), time);
+
+    return () => clearTimeout(timer);
+  });
+
+  return (
+    showLoading && (
+      <ListGroup.Item key="-1">
+        {" "}
+        <span className="fw-bold">{`Loading ${title}...`}</span>
+      </ListGroup.Item>
+    )
+  );
+};
 
 const SearchBar = (props) => {
   const [search, setSearch] = useState("");
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const debouncedSearch = useDebounce(search, 500);
-
+  console.log("isLoading", isLoading);
+  const [debouncedSearch, searchDone] = useDebounce(search, 500);
+  console.log("searchDone", searchDone);
   // fetch courses
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +42,9 @@ const SearchBar = (props) => {
       setCourses(courseList);
       setIsLoading(false);
     };
-
+    if (debouncedSearch.length === 0) {
+      setCourses([]);
+    }
     if (debouncedSearch) {
       setIsLoading(true);
       fetchData();
@@ -52,6 +74,9 @@ const SearchBar = (props) => {
           placeholder="Course Code (e.g. MAT137)"
           onChange={(e) => setSearch(e.target.value)}
         />
+        {isLoading && debouncedSearch.length > 1 && (
+          <DelayedListGroup title="Courses" time={750} />
+        )}
         {!isLoading && debouncedSearch.length > 1 && (
           <ListGroup style={{ borderRadius: "0" }}>
             {courses.map((course) => {
@@ -70,14 +95,16 @@ const SearchBar = (props) => {
             })}
           </ListGroup>
         )}
-        {!isLoading && courses.length === 0 && debouncedSearch.length > 1 && (
-          <ListGroup>
-            <ListGroup.Item key="-1">
-              <span className="fw-bold">No Course Found</span>
-            </ListGroup.Item>
-          </ListGroup>
-        )}
-        {isLoading && <LoadingSpinner></LoadingSpinner>}
+        {!isLoading &&
+          searchDone &&
+          courses.length === 0 &&
+          debouncedSearch.length > 1 && (
+            <ListGroup style={{ borderRadius: "0" }}>
+              <ListGroup.Item key="-1">
+                <span className="fw-bold">No Course Found</span>
+              </ListGroup.Item>
+            </ListGroup>
+          )}
       </Form.Group>
     </Form>
   );
