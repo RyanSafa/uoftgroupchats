@@ -26,7 +26,7 @@ const SearchBar = (props) => {
   const [search, setSearch] = useState("");
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [debouncedSearch, searchDone] = useDebounce(search, 500);
+  const debouncedSearch = useDebounce(search, 500);
   // fetch courses
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +42,8 @@ const SearchBar = (props) => {
     if (debouncedSearch.length === 0) {
       setCourses([]);
     }
-    if (debouncedSearch) {
-      setIsLoading(true);
+    setIsLoading(true);
+    if (debouncedSearch.length > 1) {
       fetchData();
     }
   }, [debouncedSearch]);
@@ -92,16 +92,13 @@ const SearchBar = (props) => {
             })}
           </ListGroup>
         )}
-        {!isLoading &&
-          searchDone &&
-          courses.length === 0 &&
-          debouncedSearch.length > 1 && (
-            <ListGroup style={{ borderRadius: "0" }}>
-              <ListGroup.Item key="-1">
-                <span className="fw-bold">No Course Found</span>
-              </ListGroup.Item>
-            </ListGroup>
-          )}
+        {!isLoading && courses.length === 0 && debouncedSearch.length > 1 && (
+          <ListGroup style={{ borderRadius: "0" }}>
+            <ListGroup.Item key="-1">
+              <span className="fw-bold">No Course Found</span>
+            </ListGroup.Item>
+          </ListGroup>
+        )}
       </Form.Group>
     </Form>
   );
