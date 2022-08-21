@@ -55,7 +55,9 @@ const CourseDetail = () => {
     if (lec === selectedLecture) {
       setIsGroupchatLoading(true);
       const fetchGroupchats = async () => {
-        const response = await fetch(`/api/groupchats/${id}/${lec}`);
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/api/groupchats/${id}/${lec}`
+        );
         const data = await response.json();
         if (response.ok) {
           setGroupchats(data);
@@ -86,7 +88,9 @@ const CourseDetail = () => {
   };
   useEffect(() => {
     const fetchCourse = async () => {
-      const response = await fetch(`/api/courses/${code}`);
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/courses/${code}`
+      );
       const data = await response.json();
       if (response.ok) {
         setIsCourseLoading(false);
@@ -108,7 +112,9 @@ const CourseDetail = () => {
   useEffect(() => {
     setIsGroupchatLoading(true);
     const fetchGroupchats = async () => {
-      const response = await fetch(`/api/groupchats/${id}/${selectedLecture}`);
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/groupchats/${id}/${selectedLecture}`
+      );
       const data = await response.json();
       if (response.ok) {
         setGroupchats(data);

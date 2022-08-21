@@ -24,13 +24,16 @@ const ReportModal = (props) => {
       groupchatId: groupChat.id,
     };
     try {
-      const response = await fetch("/api/reports", {
-        method: "POST",
-        body: JSON.stringify(request),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/reports`,
+        {
+          method: "POST",
+          body: JSON.stringify(request),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = response.json();
       if (response.ok) {
         handleReportAlert(true, false, "Report Sent!");

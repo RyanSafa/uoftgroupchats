@@ -30,7 +30,9 @@ const SearchBar = (props) => {
   // fetch courses
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`/api/courses/search/${debouncedSearch}`);
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/courses/search/${debouncedSearch}`
+      );
       const data = await response.json();
       const courseList = [];
       for (const course of data) {

@@ -41,13 +41,16 @@ const NewChatModal = (props) => {
         courseId,
       };
       try {
-        const response = await fetch("/api/groupchats/", {
-          method: "POST",
-          body: JSON.stringify(request_obj),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/api/groupchats/`,
+          {
+            method: "POST",
+            body: JSON.stringify(request_obj),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await response.json();
         if (response.ok) {
           handleAlert(true, false, "Sucess!");

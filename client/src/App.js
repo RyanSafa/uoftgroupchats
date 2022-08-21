@@ -10,7 +10,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 function App() {
   return (
     <div className="App">
-      <BrowserRouter disableGutters="true">
+      <BrowserRouter>
         <MainNavigation />
         <Suspense
           fallback={
