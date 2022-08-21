@@ -9,7 +9,7 @@ const MainNavigation = () => {
       <Navbar bg="white" variant="dark" expand="lg" sticky="top">
         <Container className="justify-content-space-between ">
           <Navbar.Brand href="/" className="fw-bold text-primary-blue">
-            TrueBlue GroupChats
+            TorontoBlueChats
             <img
               src={chat_icon}
               width="30"
@@ -23,7 +23,7 @@ const MainNavigation = () => {
               href="https://github.com/RyanSafa/uoftgroupchats"
               target="_blank"
             >
-              <div className="text-black fw-bold">GitHub</div>
+              <div className="text-primary-blue fw-bold">GitHub</div>
             </Nav.Link>
           </Nav>
         </Container>

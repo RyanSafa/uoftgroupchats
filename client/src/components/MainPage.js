@@ -26,7 +26,7 @@ const MainPage = () => {
           <div style={{ minWidth: 0 }}>
             {!isPhone && (
               <h1 className="title gradient-text" style={{ fontSize: "3rem" }}>
-                Welcome to TrueBlue GroupChats
+                Welcome to TorontoBlueChats
               </h1>
             )}
             <h3
@@ -47,8 +47,8 @@ const MainPage = () => {
               src={chattingSVg}
             />
             <p className={"text-center subtext mt-1 d-none d-lg-block"}>
-              TrueBlue GroupChats is not officially affiliated with the
-              Univeristy of Toronto.
+              TorontoBlueChats is not officially affiliated with the Univeristy
+              of Toronto.
             </p>
           </div>
         </div>
