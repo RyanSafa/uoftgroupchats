@@ -4,18 +4,22 @@ require("dotenv").config();
 const app = express();
 const PORT = 5000;
 const bodyParser = require("body-parser");
-
+const environment = process.env.NODE_ENV;
 const ErrorHandler = require("./middleware/errorHandling");
 const courseRoutes = require("./routes/courses");
 const groupchatRoutes = require("./routes/groupchats");
 const reportRoutes = require("./routes/reports");
 
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  })
-);
+console.log(environment);
+const courseConfig = {
+  origin:
+    environment == "production"
+      ? process.env.CLIENT_URL
+      : `http://localhost:3000`,
+  credentials: true,
+};
+
+app.use(cors(courseConfig));
 app.use(express.json());
 app.use(bodyParser.json());
 app.set("trust proxy", 1);

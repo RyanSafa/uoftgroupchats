@@ -14,7 +14,7 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
+    "username": "torontobluechats",
     "password": "password",
     "database": "uoftgroupchats",
     "host": "127.0.0.1",

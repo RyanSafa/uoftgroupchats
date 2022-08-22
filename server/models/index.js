@@ -9,6 +9,12 @@ const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
 let sequelize;
+
+console.log("index models", env);
+if (env == "production") {
+  config["password"] = process.env.MYSQL_PASSWORD;
+}
+
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {

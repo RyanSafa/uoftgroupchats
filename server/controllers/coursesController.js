@@ -15,6 +15,7 @@ const serachCourses = async (req, res, next) => {
     });
     return res.send(returnedCourses);
   } catch (error) {
+    console.log(error);
     next({ status: 500, message: "" });
   }
 };
