@@ -26,6 +26,7 @@ const SearchBar = (props) => {
   const [search, setSearch] = useState("");
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const debouncedSearch = useDebounce(search, 500);
   // fetch courses
   useEffect(() => {
@@ -46,7 +47,10 @@ const SearchBar = (props) => {
     }
     setIsLoading(true);
     if (debouncedSearch.length > 1) {
-      fetchData();
+      fetchData().catch(() => {
+        setIsError(true);
+        setIsLoading(false);
+      });
     }
   }, [debouncedSearch]);
 
@@ -73,10 +77,10 @@ const SearchBar = (props) => {
           placeholder="Course Code (e.g. MAT137)"
           onChange={(e) => setSearch(e.target.value)}
         />
-        {isLoading && debouncedSearch.length > 1 && (
+        {isLoading && !isError && debouncedSearch.length > 1 && (
           <DelayedListGroup title="Courses" time={750} />
         )}
-        {!isLoading && debouncedSearch.length > 1 && (
+        {!isLoading && !isError && debouncedSearch.length > 1 && (
           <ListGroup style={{ borderRadius: "0" }}>
             {courses.map((course) => {
               return (
@@ -94,10 +98,20 @@ const SearchBar = (props) => {
             })}
           </ListGroup>
         )}
-        {!isLoading && courses.length === 0 && debouncedSearch.length > 1 && (
+        {!isLoading &&
+          courses.length === 0 &&
+          !isError &&
+          debouncedSearch.length > 1 && (
+            <ListGroup style={{ borderRadius: "0" }}>
+              <ListGroup.Item key="-1">
+                <span className="fw-bold">No Course Found</span>
+              </ListGroup.Item>
+            </ListGroup>
+          )}
+        {!isLoading && isError && (
           <ListGroup style={{ borderRadius: "0" }}>
             <ListGroup.Item key="-1">
-              <span className="fw-bold">No Course Found</span>
+              <span className="fw-bold">Error</span>
             </ListGroup.Item>
           </ListGroup>
         )}
