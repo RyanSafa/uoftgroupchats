@@ -13,7 +13,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const res = await courseData();
     return queryInterface.bulkInsert(
-      "courses",
+      "Courses",
       res.courses,
       {},
       {
@@ -23,6 +23,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("courses", null, {});
+    return queryInterface.bulkDelete("Courses", null, {});
   },
 };
