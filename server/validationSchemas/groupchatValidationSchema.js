@@ -21,9 +21,12 @@ const schema = {
       options: {
         protocols: ["https"],
         require_valid_protocol: true,
+        require_protocol: true,
+        require_host: true,
       },
       errorMessage: "Not a valid link.",
     },
+    trim: true,
   },
   lecture: {
     in: ["body"],

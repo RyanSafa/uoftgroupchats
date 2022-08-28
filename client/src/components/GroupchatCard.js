@@ -62,7 +62,9 @@ const GroupchatCard = (props) => {
         </Card.Header>
         <Card.Body className="d-flex flex-column justify-content-between">
           <Card.Text className={classes.link}>
-            <Card.Link href={link}>{link}</Card.Link>
+            <Card.Link target="_blank" rel="noopener noreferrer" href={link}>
+              {link}
+            </Card.Link>
           </Card.Text>
           <Card.Text className={classes.footer}>
             <small className="text-muted">Uploaded on {date} </small>
@@ -105,12 +107,6 @@ const GroupchatCard = (props) => {
               Browser not supported :({" "}
             </p>
           )}
-          {/* <Button
-            onClick={() => navigator.clipboard.writeText(link)}
-            className="d-flex align-items-center"
-          > <img src={copySvg} alt="copy" width="22" height="22" />
-            Copy
-          </Button> */}
         </Card.Footer>
       </Card>
       <ReportModal

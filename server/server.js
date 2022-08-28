@@ -10,7 +10,6 @@ const courseRoutes = require("./routes/courses");
 const groupchatRoutes = require("./routes/groupchats");
 const reportRoutes = require("./routes/reports");
 
-console.log(environment);
 const courseConfig = {
   origin:
     environment == "production"
