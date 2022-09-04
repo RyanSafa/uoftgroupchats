@@ -118,6 +118,11 @@ const CourseDetail = () => {
       const data = await response.json();
       if (response.ok) {
         setGroupchats(data);
+        setAlert({
+          showAlert: false,
+          isError: false,
+          msg: "",
+        });
         setIsGroupchatLoading(false);
       } else {
         throw new Error(data.message, { cause: data.status });
