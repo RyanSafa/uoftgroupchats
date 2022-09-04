@@ -1,5 +1,5 @@
 const { checkSchema } = require("express-validator");
-const { Course } = require("../models");
+const { Course, Groupchat } = require("../models");
 
 const schema = {
   type: {
@@ -27,6 +27,22 @@ const schema = {
       errorMessage: "Not a valid link.",
     },
     trim: true,
+    custom: {
+      options: async (value, { req }) => {
+        const { courseId } = req.body;
+        const groupchats = await Groupchat.findAll({
+          where: {
+            courseId,
+          },
+          attributes: ["link"],
+        });
+        for (gc of groupchats) {
+          if (value === gc.dataValues.link) {
+            return Promise.reject("Duplicate link");
+          }
+        }
+      },
+    },
   },
   lecture: {
     in: ["body"],
