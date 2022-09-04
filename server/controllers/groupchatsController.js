@@ -12,9 +12,7 @@ const createGroupchat = async (req, res, next) => {
     });
     return res.send(groupchat);
   } catch (error) {
-    if (error instanceof Sequelize.ForeignKeyConstraintError) {
-      next({ status: 400, message: "Invalid courseId" });
-    } else if (error instanceof Sequelize.UniqueConstraintError) {
+    if (error instanceof Sequelize.UniqueConstraintError) {
       next({ status: 400, message: "Link must be unique" });
     } else {
       next({ status: 500, message: "" });
@@ -34,12 +32,12 @@ const getGroupchats = async (req, res, next) => {
 
   try {
     const groupchats = await Groupchat.findAll(query);
-    const groupchatsWithNoReports = groupchats.filter((gc) => {
-      if (gc.dataValues.Reports.length === 0) {
-        return gc;
-      }
-    });
-    return res.send(groupchatsWithNoReports);
+    // const groupchatsWithNoReports = groupchats.filter((gc) => {
+    //   if (gc.dataValues.Reports.length === 0) {
+    //     return gc;
+    //   }
+    // });
+    return res.send(groupchats);
   } catch (error) {
     if (error instanceof Sequelize.ForeignKeyConstraintError) {
       next({ status: 400, message: "Invalid courseId" });
