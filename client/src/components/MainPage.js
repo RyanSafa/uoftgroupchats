@@ -33,7 +33,7 @@ const MainPage = () => {
               className={instructions_class}
               style={{ fontSize: instructions_fontsize }}
             >
-              Find &amp; Upload Group Chats for Courses at the UofT St.George
+              Find &amp; Upload Group Chats for Courses at the UofT St. George
               Campus
             </h3>
             <SearchBar isPhone={isPhone} />
