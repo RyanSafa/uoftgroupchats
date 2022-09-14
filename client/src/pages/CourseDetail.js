@@ -95,7 +95,7 @@ const CourseDetail = () => {
       if (response.ok) {
         setIsCourseLoading(false);
         setCourse(data);
-        setSelectedLecture(data.lectures[1]);
+        setSelectedLecture(data.lectures[0]);
       } else {
         throw new Error(data.message, { cause: data.status });
       }
