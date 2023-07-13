@@ -1,4 +1,4 @@
-# Welcome to the repo of TorontoBlueChats.com
+# Welcome to the repo of TorontoBlueChats (https://torontobluechats.com/)
 
 ![Landing Page](https://github.com/RyanSafa/uoftgroupchats/assets/86428088/21904f8c-3771-4289-ac2d-6279bc77e555)
 
