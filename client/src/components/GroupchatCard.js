@@ -10,6 +10,7 @@ import discordLogo from "../logos/Discord-Logo-Black.png";
 import messengerLogo from "../logos/M_logo_Black.png";
 import telegramLogo from "../logos/telegram_logo.png";
 import slackLogo from "../logos/slackblacklogo.png";
+import instaLogo from "../logos/insta_logo_black.png"
 
 const GroupchatCard = (props) => {
   const logos = {
@@ -18,6 +19,7 @@ const GroupchatCard = (props) => {
     Telegram: telegramLogo,
     Slack: slackLogo,
     "Facebook Messenger": messengerLogo,
+    Instagram: instaLogo
   };
 
   const [copied, setCopied] = useState(false);

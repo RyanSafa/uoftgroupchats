@@ -11,6 +11,7 @@ const NewChatModal = (props) => {
     "Facebook Messenger",
     "Telegram",
     "Slack",
+    "Instagram"
   ];
   const lecRef = useRef();
   const typeRef = useRef();
