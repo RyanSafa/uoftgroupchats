@@ -56,7 +56,7 @@ const SearchBar = (props) => {
 
   return (
     <Form
-      className={!props.isPhone ? "pt-4" : "pt-1"}
+      className={!props.isPhone ? "pt-2" : "pt-1"}
       onSubmit={(event) => {
         event.preventDefault();
       }}

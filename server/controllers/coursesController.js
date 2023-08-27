@@ -2,7 +2,7 @@ const { Course, Groupchat } = require("../models");
 const { Op } = require("sequelize");
 
 const serachCourses = async (req, res, next) => {
-  const { code } = req.params;
+  const { code, faculty } = req.params;
   try {
     const returnedCourses = await Course.findAll({
       attributes: ["code", "id", "title"],
@@ -11,6 +11,7 @@ const serachCourses = async (req, res, next) => {
         code: {
           [Op.substring]: code,
         },
+        faculty: faculty
       },
     });
     return res.send(returnedCourses);

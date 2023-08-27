@@ -46,3 +46,37 @@ body {
   font-style: italic;
   color: rgb(231, 231, 231);
 }
+
+.input-group button {
+  border-radius: 10;
+  background-color: #002a5c;
+}
+.dropdown-toggle {
+  transition: ease-in 0.2s;
+  background-color: #002a5c;
+  border-color: white;
+  color: white;
+}
+.dropdown-toggle:hover {
+  color: #002a5c;
+  background-color: white;
+}
+.input-group-text {
+  border-radius: 10;
+  background-color: #002a5c;
+  border-color: white;
+  color: white;
+}
+.dropdown-item {
+  color: #002a5c;
+}
+.dropdown-item:hover {
+  color: white;
+  background-color: #002a5c;
+}
+.dropdown-menu {
+  border-radius: 10;
+  background-color: white;
+  border-color: #002a5c;
+  color: #002a5c;
+}
