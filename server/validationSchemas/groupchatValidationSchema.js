@@ -6,7 +6,7 @@ const schema = {
     in: ["body"],
     isIn: {
       options: [
-        ["WhatsApp", "Discord", "Telegram", "Slack", "Facebook Messenger"],
+        ["WhatsApp", "Discord", "Telegram", "Slack", "Facebook Messenger", "Instagram"],
       ],
       errorMessage:
         "You must choose one of the following websites: WhatsApp, Discord, Instagram, WeChat or Facebook Messenger.",

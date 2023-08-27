@@ -14,7 +14,8 @@ module.exports = {
           "Discord",
           "Facebook Messenger",
           "Telegram",
-          "Slack"
+          "Slack",
+          "Instagram"
         ),
         allowNull: false,
       },

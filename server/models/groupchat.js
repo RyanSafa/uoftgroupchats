@@ -23,8 +23,9 @@ module.exports = (sequelize, DataTypes) => {
           "Discord",
           "Facebook Messenger",
           "Telegram",
-          "Slack"
-        ),
+          "Slack",
+          "Instagram" // Add Instagram as a new option
+        ),        
         allowNull: false,
       },
       link: {
