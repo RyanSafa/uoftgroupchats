@@ -54,7 +54,7 @@ const NewChatModal = (props) => {
         );
         const data = await response.json();
         if (response.ok) {
-          handleAlert(true, false, "Sucess!");
+          handleAlert(true, false, "Success!");
           handleNewFormClose();
           reloadGroupchats(lecRef.current.value, courseId);
         } else {
