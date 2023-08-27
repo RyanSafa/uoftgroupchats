@@ -42,8 +42,12 @@ const NewChatModal = (props) => {
         courseId,
       };
       try {
+        const courseSearchAPI = process.env.REACT_APP_SERVER_URL ? 
+        `${process.env.REACT_APP_SERVER_URL}/api/groupchats/` 
+        : `http://localhost:4000/api/groupchats/`
+
         const response = await fetch(
-          `${process.env.REACT_APP_SERVER_URL}/api/groupchats/`,
+          courseSearchAPI,
           {
             method: "POST",
             body: JSON.stringify(request_obj),

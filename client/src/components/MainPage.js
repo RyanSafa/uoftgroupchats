@@ -24,8 +24,8 @@ const MainPage = () => {
   const instructions_class = isPhone ? "" : "mt-4";
   const instructions_fontsize = isPhone ? "1rem" : "1.5rem";
   const facultyNamesToCodes = {
-    "Arts and Science": "APSC",
-    "Engineering": "ARTSC",
+    "Arts and Science": "ARTSC",
+    "Engineering": "APSC",
     "KPE": "FPEH",
     "Music": "MUSIC",
     "Daniels": "ARCLA",
