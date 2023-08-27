@@ -26,11 +26,11 @@ const getRequest = async () => {
       "dayPreferences": [],
       "timePreferences": [],
       "divisions": [
-        "ARTSC"
+        "APSC","ARTSC","FPEH","MUSIC","ARCLA","ERIN","SCAR"
       ],
       "creditWeights": [],
       "page": 1,
-      "pageSize": 4000,
+      "pageSize": 8000,
       "direction": "asc"
     };
 
@@ -57,7 +57,7 @@ const getRequest = async () => {
     courses_test = Object.keys(courses).length;
     for (const course in courses) {
       const courseData = courses[course];
-      const { code, sectionCode, name, sections } = courseData;
+      const { code, sectionCode, name, sections, faculty } = courseData;
       let codeName;
       if (sectionCode === "Y") {
         codeName = code;
@@ -69,6 +69,7 @@ const getRequest = async () => {
         code: codeName,
         title: name,
         lectures: [],
+        faculty: faculty.code
       });
 
       courseDict.courses[index - 1].lectures.push("Unspecified Lecture");

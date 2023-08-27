@@ -22,6 +22,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       lectures: DataTypes.JSON,
+      faculty: {
+        type: DataTypes.ENUM(
+          "APSC", "ARTSC", "FPEH", "MUSIC", "ARCLA", "ERIN", "SCAR"
+        ),        
+        allowNull: false,
+      },
     },
     {
       sequelize,
