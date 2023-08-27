@@ -5,7 +5,7 @@ const path = require("path");
 const courseData = async () => {
   return JSON.parse(
     await fs.readFileSync(
-      path.resolve(__dirname, "../createCourses/courses.json")
+      path.resolve(__dirname, "../createCourses/courses2023.json")
     )
   );
 };

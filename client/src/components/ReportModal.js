@@ -24,8 +24,12 @@ const ReportModal = (props) => {
       groupchatId: groupChat.id,
     };
     try {
+      const courseSearchAPI = process.env.REACT_APP_SERVER_URL ? 
+      `${process.env.REACT_APP_SERVER_URL}/api/reports` 
+      : `http://localhost:4000/api/reports`
+
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/api/reports`,
+        courseSearchAPI,
         {
           method: "POST",
           body: JSON.stringify(request),

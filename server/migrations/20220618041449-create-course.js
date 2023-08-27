@@ -19,6 +19,12 @@ module.exports = {
       lectures: {
         type: Sequelize.JSON,
       },
+      faculty: {
+        type: Sequelize.ENUM(
+          "APSC", "ARTSC", "FPEH", "MUSIC", "ARCLA", "ERIN", "SCAR"
+        ),
+        allowNull: false,
+      },
       createdAt: {
         type: "TIMESTAMP",
         allowNull: false,

@@ -3,9 +3,14 @@ import Image from "react-bootstrap/Image";
 import chattingSVg from "../svgs/phone.svg";
 import SearchBar from "./SearchBar";
 import { useState, useEffect } from "react";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
+import Col from "react-bootstrap/Col";
+import InputGroup from "react-bootstrap/InputGroup";
 
 const MainPage = () => {
   const [isPhone, setPhone] = useState(window.innerWidth < 480);
+  const [faculty, setFaculty] = useState("Arts and Science")
 
   const updateMedia = () => {
     setPhone(window.innerWidth < 480);
@@ -18,6 +23,16 @@ const MainPage = () => {
 
   const instructions_class = isPhone ? "" : "mt-4";
   const instructions_fontsize = isPhone ? "1rem" : "1.5rem";
+  const facultyNamesToCodes = {
+    "Arts and Science": "ARTSC",
+    "Engineering": "APSC",
+    "KPE": "FPEH",
+    "Music": "MUSIC",
+    "Daniels": "ARCLA",
+    "UTM": "ERIN",
+    "UTSC": "SCAR"
+  };
+  
 
   return (
     <>
@@ -33,10 +48,32 @@ const MainPage = () => {
               className={instructions_class}
               style={{ fontSize: instructions_fontsize }}
             >
-              Find &amp; Upload Group Chats for Courses at the UofT St.George
-              Campus
+              Find &amp; Upload Group Chats for Courses at UofT
             </h3>
-            <SearchBar isPhone={isPhone} />
+              <Col xs="auto" className="my-3 text-center">
+                <InputGroup>
+                  <InputGroup.Text>FACULTY</InputGroup.Text>
+                  <DropdownButton
+                    onSelect={(eKey) => setFaculty(eKey)}
+                    title={faculty}
+                    id="input-group-dropdown-1"
+                    className=""
+                  >
+                    {Object.keys(facultyNamesToCodes).map((lecture) => {
+                      return (
+                        <Dropdown.Item
+                          id={lecture}
+                          key={lecture}
+                          eventKey={lecture}
+                        >
+                          {lecture}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </DropdownButton>
+                </InputGroup>
+              </Col>
+            <SearchBar isPhone={isPhone} faculty={facultyNamesToCodes[faculty]}/>
           </div>
           <div
             className={"d-flex align-self-start flex-column d-none d-lg-block"}

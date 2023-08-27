@@ -31,9 +31,10 @@ const SearchBar = (props) => {
   // fetch courses
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/api/courses/search/${debouncedSearch}`
-      );
+      const courseSearchAPI = process.env.REACT_APP_SERVER_URL ? 
+      `${process.env.REACT_APP_SERVER_URL}/api/courses/search/${props.faculty}/${debouncedSearch}` 
+      : `http://localhost:4000/api/courses/search/${props.faculty}/${debouncedSearch}`
+      const response = await fetch(courseSearchAPI);
       const data = await response.json();
       const courseList = [];
       for (const course of data) {
@@ -52,11 +53,11 @@ const SearchBar = (props) => {
         setIsLoading(false);
       });
     }
-  }, [debouncedSearch]);
+  }, [debouncedSearch, props.faculty]);
 
   return (
     <Form
-      className={!props.isPhone ? "pt-4" : "pt-1"}
+      className={!props.isPhone ? "pt-2" : "pt-1"}
       onSubmit={(event) => {
         event.preventDefault();
       }}
