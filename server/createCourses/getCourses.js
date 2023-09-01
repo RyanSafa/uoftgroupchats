@@ -72,7 +72,7 @@ const getRequest = async () => {
         faculty: faculty.code
       });
 
-      courseDict.courses[index - 1].lectures.push("Unspecified Lecture");
+      courseDict.courses[index - 1].lectures.push("General Lecture");
 
       for (meeting in sections) {
         const lec = sections[meeting].name

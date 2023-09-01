@@ -31,6 +31,7 @@ const SearchBar = (props) => {
   // fetch courses
   useEffect(() => {
     const fetchData = async () => {
+			console.log(process.env.REACT_APP_SERVER_URL)
       const courseSearchAPI = process.env.REACT_APP_SERVER_URL ? 
       `${process.env.REACT_APP_SERVER_URL}/api/courses/search/${props.faculty}/${debouncedSearch}` 
       : `http://localhost:4000/api/courses/search/${props.faculty}/${debouncedSearch}`

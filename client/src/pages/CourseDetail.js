@@ -25,7 +25,7 @@ const CourseDetail = () => {
     updatedAt: "",
   });
   const [isCourseLoading, setIsCourseLoading] = useState(true);
-  const [selectedLecture, setSelectedLecture] = useState("Unspecified Lecture");
+  const [selectedLecture, setSelectedLecture] = useState("General Lecture");
   const [groupchats, setGroupchats] = useState([]);
   const [isGroupchatLoading, setIsGroupchatLoading] = useState(false);
   const [showGroupChatModal, setShowGroupChatModal] = useState(false);
